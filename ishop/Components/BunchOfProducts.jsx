@@ -1,5 +1,5 @@
-var Products = React.createClass({
-    displayName: 'Products',
+var BunchOfProducts = React.createClass({
+    displayName: 'BunchOfProducts',
 
     getDefaultProps: function() {
         return { shop: "Безымянный"}
@@ -7,15 +7,15 @@ var Products = React.createClass({
 
     render: function() {
         var productsCode = [];
-        var FirstLineCode = 
+        var ColumnNames = 
                 React.DOM.div({key: 0, className: 'Row'},
-                React.DOM.div({className: 'Cell FirstRow'}, 'Наименование товара'),
-                React.DOM.div({className: 'Cell FirstRow'}, 'Цена (в BYN)'),
-                React.DOM.div({className: 'Cell FirstRow'}, 'Остаток'),
-                React.DOM.div({className: 'Cell FirstRow ToCenter'}, 'Фото'),
+                React.DOM.div({className: 'Cell ColumnNames'}, 'Наименование товара'),
+                React.DOM.div({className: 'Cell ColumnNames'}, 'Цена (в BYN)'),
+                React.DOM.div({className: 'Cell ColumnNames'}, 'Остаток'),
+                React.DOM.div({className: 'Cell ColumnNames ToCenter'}, 'Фото'),
                 );
 
-        productsCode.push(FirstLineCode);
+        productsCode.push(ColumnNames);
 
         allProducts = this.props.products;
         allProducts.forEach(function(item, i, allProducts) {
@@ -32,9 +32,9 @@ var Products = React.createClass({
             productsCode.push(productCode);
         });
 
-        return React.DOM.div({className: 'Table'},
-        React.DOM.h2({},`Магазин ${this.props.shop}`),
-        React.DOM.div({}, productsCode),
+        return React.DOM.div({className: 'BunchOfProducts'},
+        React.DOM.h2({className: 'Signboard'},`Магазин ${this.props.shop}`),
+        React.DOM.div({className: 'Table'}, productsCode),
         );
     },
 });

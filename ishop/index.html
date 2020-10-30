@@ -10,13 +10,13 @@
   <script src="https://unpkg.com/react@15/dist/react.js"></script> 
   <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script> 
       
-  <script src="Components/Products.jsx"></script>
+  <script src="Components/BunchOfProducts.jsx"></script>
   <script src="TestData/BuildingMaterials.js"></script>
-  <link rel="stylesheet" type="text/css" href="Components/Products.css" />
+  <link rel="stylesheet" type="text/css" href="Components/BunchOfProducts.css" />
 
   <script>
     ReactDOM.render(
-      React.createElement(Products,{shop: shopName, products: buildingMaterials}),
+      React.createElement(BunchOfProducts,{shop: shopName, products: buildingMaterials}),
       document.getElementById('container')
     );
   </script>
