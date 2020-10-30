@@ -1,0 +1,39 @@
+.Row {
+    display: table-row;
+}
+
+.Table {
+    display: table;
+}
+
+.Cell {
+    display: table-cell;
+    border: 1px solid #555;
+    vertical-align: middle;
+    text-align: justify;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.Text {
+    font-family: Arial, sans-serif;
+    font-size: large;
+}
+
+.Image {
+    width: 100px;
+    height: 100px;
+}
+
+.FirstRow {
+    font-family: Arial, sans-serif;
+    font-size: large;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-weight: bold;
+
+}
+
+.ToCenter {
+    text-align: center;
+}
