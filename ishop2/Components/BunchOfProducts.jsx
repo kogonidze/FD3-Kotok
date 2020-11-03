@@ -1,6 +1,15 @@
 var BunchOfProducts = React.createClass({
     displayName: 'BunchOfProducts',
 
+    propTypes: {
+        shop: React.PropTypes.string.isRequired,
+        name: React.PropTypes.string.isRequired,
+        barcode: React.PropTypes.number.isRequired,
+        price: React.PropTypes.number.isRequired,
+        count: React.PropTypes.number.isRequired,
+        photo: React.PropTypes.string.isRequired,
+    },
+    
     getDefaultProps: function() {
         return { shop: "Безымянный"}
     }, 
