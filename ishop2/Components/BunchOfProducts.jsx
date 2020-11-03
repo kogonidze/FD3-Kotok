@@ -3,11 +3,15 @@ var BunchOfProducts = React.createClass({
 
     propTypes: {
         shop: React.PropTypes.string.isRequired,
-        name: React.PropTypes.string.isRequired,
-        barcode: React.PropTypes.number.isRequired,
-        price: React.PropTypes.number.isRequired,
-        count: React.PropTypes.number.isRequired,
-        photo: React.PropTypes.string.isRequired,
+        product: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+                name: React.PropTypes.string.isRequired,
+                barcode: React.PropTypes.number.isRequired,
+                price: React.PropTypes.number.isRequired,
+                count: React.PropTypes.number.isRequired,
+                photo: React.PropTypes.string.isRequired,
+            })
+        ),
     },
     
     getDefaultProps: function() {
@@ -42,7 +46,7 @@ var BunchOfProducts = React.createClass({
         });
 
         return React.DOM.div({className: 'BunchOfProducts'},
-        React.DOM.h2({className: 'Signboard'},`Магазин ${this.props.shop}`),
+        React.createElement(Shop, {shop: this.props.shop}),
         React.DOM.div({className: 'Table'}, productsCode),
         );
     },
