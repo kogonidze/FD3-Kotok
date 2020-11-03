@@ -6,6 +6,6 @@ var Shop = React.createClass({
     },
 
     render: function() {
-        return React.DOM.h2({className: 'Signboard'},`Магазин ${this.props.shop}`);
+        return React.DOM.h2({className: 'Shop'},`Магазин ${this.props.shop}`);
     },
 })

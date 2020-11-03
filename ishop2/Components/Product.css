@@ -1,0 +1,24 @@
+.Product .Cell {
+    vertical-align: middle;
+    text-align: justify;
+    padding-right: 10px;
+    padding-left: 10px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.Product .Text {
+    font-family: Arial, sans-serif;
+    font-size: large;
+}
+
+.Product .ToCenter {
+    text-align: center;
+}
+
+.Product .Image {
+    width: 100px;
+    height: 100px;
+    border-collapse: collapse;
+    vertical-align: middle;
+}
