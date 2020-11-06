@@ -20,7 +20,7 @@ var BunchOfProducts = React.createClass({
 
     getInitialState: function() {
         return {
-            productToDelete: null,
+            productToDelete: [],
             selectedProduct: null,
         };
     },
@@ -30,7 +30,9 @@ var BunchOfProducts = React.createClass({
     },
 
     cbDeleteRow: function(code) {
-        this.setState( {productToDelete: code});
+        var deletedRows = this.state.productToDelete.slice();
+        deletedRows.push(code);
+        this.setState({productToDelete: deletedRows});
     },
 
     render: function() {
