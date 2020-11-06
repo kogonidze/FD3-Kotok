@@ -18,6 +18,21 @@ var BunchOfProducts = React.createClass({
         return { shop: "Безымянный"}
     }, 
 
+    getInitialState: function() {
+        return {
+            productToDelete: null,
+            selectedProduct: null,
+        };
+    },
+
+    cbSelectRow: function(code) {
+        this.setState({selectedProduct: code});
+    },
+
+    cbDeleteRow: function(code) {
+        this.setState( {productToDelete: code});
+    },
+
     render: function() {
         var productsCode = this.props.products.map( product => 
             React.createElement(Product, {key: product.barcode, 
@@ -25,6 +40,11 @@ var BunchOfProducts = React.createClass({
                                 price: product.price, 
                                 count: product.count,
                                 photo: product.photo,
+                                barcode: product.barcode,
+                                cbSelectRow: this.cbSelectRow,
+                                cbDeleteRow: this.cbDeleteRow,
+                                selectedProduct: this.state.selectedProduct,
+                                productToDelete: this.state.productToDelete,
                             }));
 
         return React.DOM.div({className: 'BunchOfProducts'},
@@ -32,10 +52,11 @@ var BunchOfProducts = React.createClass({
         React.DOM.table({className: 'Table'},
             React.DOM.tbody(null, 
                 React.DOM.tr({className: 'Row'}, 
-                    React.DOM.th({className: 'Cell ColumnNames'}, 'Наименование товара'),
-                    React.DOM.th({className: 'Cell ColumnNames'}, 'Цена (в BYN)'),
-                    React.DOM.th({className: 'Cell ColumnNames'}, 'Остаток'),
+                    React.DOM.th({className: 'Cell ColumnNames ToCenter'}, 'Наименование товара'),
+                    React.DOM.th({className: 'Cell ColumnNames ToCenter'}, 'Цена (в BYN)'),
+                    React.DOM.th({className: 'Cell ColumnNames ToCenter'}, 'Остаток'),
                     React.DOM.th({className: 'Cell ColumnNames ToCenter'}, 'Фото'),
+                    React.DOM.th({className: 'Cell ColumnNames ToCenter'}, "Удаление"),
                 ),
                 ({className: 'Row'}, productsCode)
         )),
