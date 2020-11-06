@@ -1,0 +1,26 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta charset="utf-8" />
+  <title>Фильтр</title>
+</head> 
+<body> 
+  <div id="container"></div> 
+      
+  <script src="https://unpkg.com/react@15/dist/react.js"></script> 
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script> 
+      
+  <script src="Components/Filter.jsx"></script>
+  <script src="TestData/strings.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="Components/Filter.css" />
+
+  <script>
+    ReactDOM.render(
+      React.createElement(Filter,{strings: inputStrings}),
+      document.getElementById('container')
+    );
+  </script>
+
+</body> 
+</html>
