@@ -1,0 +1,43 @@
+.BunchOfProducts .Table {
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+    border: 3px solid black;
+    border-collapse: collapse;
+}
+
+.BunchOfProducts .Cell {
+    vertical-align: middle;
+    text-align: justify;
+    padding-right: 10px;
+    padding-left: 10px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.BunchOfProducts .Row {
+    border: 3px solid black;
+}
+
+.BunchOfProducts .Text {
+    font-family: Arial, sans-serif;
+    font-size: large;
+}
+
+.BunchOfProducts .Image {
+    width: 100px;
+    height: 100px; 
+}
+
+.BunchOfProducts .ColumnNames {
+    font-family: Arial, sans-serif;
+    font-size: large;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-weight: bold;
+}
+
+.BunchOfProducts .ToCenter {
+    text-align: center;
+}
+
