@@ -12,25 +12,44 @@ var Filter = React.createClass({
     getInitialState: function() {
         return {
             isSorted: false,
-            isFiltered: false,
+            isFiltered: "",
             isCancelled: false,
         }
     },
 
-    sortArray: function() {
-        this.setState({isSorted: true});
+    sortArray: function(EO) {
+        this.setState({isSorted: EO.target.checked});
         console.log("qq");
     },
 
-    render: function() {
-        var stringsCode = this.props.strings;
+    filterArray: function(EO) {
+        this.setState({isFiltered: EO.target.value});
+    },
 
-        return React.DOM.div(null, 
-            React.DOM.input({type: 'checkbox', onClick: this.sortArray}),
-            React.DOM.input({type: 'text'}),
-            React.DOM.input({type: 'button', value: 'сброс'}),
-            this.state.isSorted ? React.DOM.div(null, React.DOM.textarea({type: "text", defaultValue: stringsCode.sort().join("\n"), rows: 10, cols: 25}))
-            : React.DOM.div(null, React.DOM.textarea({type: "text", defaultValue: stringsCode.join("\n"), rows: 10, cols: 25})),
+    cancel: function() {
+        this.setState({isSorted: false, isFiltered: ""});
+    },
+
+    getAllSubstr: function() {
+        return this.props.strings.filter(elem => {
+            if(elem.toLowerCase().indexOf(this.state.isFiltered.toLowerCase()) !== -1)
+            {
+                return elem
+            }
+        });
+    },
+
+    render: function() {
+        var stringsCode = this.props.strings.slice();
+
+        return React.DOM.div({className: 'Filter'}, 
+            React.DOM.input({type: 'checkbox', checked: this.state.isSorted, onClick: this.sortArray}),
+            React.DOM.input({type: 'text', onChange: this.filterArray, value: this.state.isFiltered}),
+            React.DOM.input({type: 'button', value: 'сброс', onClick: this.cancel}),
+            React.DOM.div({className: "Textarea"}, React.DOM.textarea({type: "text", value: this.state.isFiltered != "" ? (
+                this.state.isSorted ?  this.getAllSubstr().sort().join("\n") : this.getAllSubstr().join("\n")
+            ) : (this.state.isSorted ?
+            stringsCode.sort().join("\n") : this.props.strings.join("\n")), rows: 10, cols: 25})),
         );
     }
 })
