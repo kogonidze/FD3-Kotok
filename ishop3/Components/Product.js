@@ -1,3 +1,7 @@
+import React from 'react';
+
+import './BunchOfProducts.css';
+
 var Product = React.createClass({
     displayName: 'Product',
 
@@ -40,3 +44,5 @@ var Product = React.createClass({
                     React.DOM.input({type: 'button', value: "Удалить", onClick: this.deleteRow})));
     },
 })
+
+export default Product;

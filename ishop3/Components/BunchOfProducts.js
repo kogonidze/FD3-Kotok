@@ -1,3 +1,9 @@
+import React from 'react';
+
+import './BunchOfProducts.css';
+import Shop from './Shop';
+import Product from './Product';
+
 var BunchOfProducts = React.createClass({
     displayName: 'BunchOfProducts',
 
@@ -65,3 +71,5 @@ var BunchOfProducts = React.createClass({
         );
     },
 });
+
+export default BunchOfProducts;
