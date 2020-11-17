@@ -34,7 +34,7 @@ var Product = React.createClass({
     },
 
     render: function() {
-        return (this.props.productToDelete.includes(this.props.barcode)) ? null : React.DOM.tr({onClick: this.selectRow, style: {background: this.props.selectedProduct == this.props.barcode ? 'grey' : 'white'}},
+        return React.DOM.tr({onClick: this.selectRow, style: {background: this.props.selectedProduct == this.props.barcode ? 'grey' : 'white'}},
                 React.DOM.td({className: 'Cell Text'}, this.props.name),
                 React.DOM.td({className: 'Cell Text ToCenter'}, this.props.price),
                 React.DOM.td({className: 'Cell Text ToCenter'}, this.props.count),

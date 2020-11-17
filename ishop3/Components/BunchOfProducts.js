@@ -9,7 +9,7 @@ var BunchOfProducts = React.createClass({
 
     propTypes: {
         shop: React.PropTypes.string.isRequired,
-        product: React.PropTypes.arrayOf(
+        products: React.PropTypes.arrayOf(
             React.PropTypes.shape({
                 name: React.PropTypes.string.isRequired,
                 barcode: React.PropTypes.number.isRequired,
@@ -28,6 +28,7 @@ var BunchOfProducts = React.createClass({
         return {
             productToDelete: [],
             selectedProduct: null,
+            products: this.props.products,
         };
     },
 
@@ -36,13 +37,14 @@ var BunchOfProducts = React.createClass({
     },
 
     cbDeleteRow: function(code) {
-        var deletedRows = this.state.productToDelete.slice();
-        deletedRows.push(code);
-        this.setState({productToDelete: deletedRows});
+        this.setState({products: this.state.products.filter(elem => {
+            if(elem.barcode != code)
+                return elem;
+        })})
     },
 
     render: function() {
-        var productsCode = this.props.products.map( product => 
+        var productsCode = this.state.products.map( product => 
             React.createElement(Product, {key: product.barcode, 
                                 name: product.name, 
                                 price: product.price, 
