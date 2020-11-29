@@ -2,9 +2,6 @@
     flex-grow: 5;
     margin-left: 2%;
     max-width: 75%;
-    /* width: 60%;
-    /* margin-left: 15%;
-    margin-right: 15%; */
     border: 3px solid black;
     border-collapse: collapse;
 }
@@ -52,13 +49,34 @@
 {
     flex-grow: 1;
     margin-left: 2%;
+    margin-right: 2%;
     max-width: 20%;
-    /* width: 20%;
-    margin-left: 15%; */
 }
 
 .BunchOfProducts .ImageProductCard
 {
     width: 200px;
     height: 200px; 
+}
+
+.BunchOfProducts .FixedPosition 
+{
+    position: fixed;
+}
+
+.BunchOfProducts .InputGroup
+{
+    float: left;
+}
+
+.BunchOfProducts .Field
+{
+    text-align: right;
+    line-height:25px;
+}
+
+.BunchOfProducts .Label
+{
+    float: left;
+    padding-right:10px;
 }

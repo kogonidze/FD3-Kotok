@@ -10,7 +10,7 @@ class ProductCard extends React.Component {
     };
 
     render() {
-        return <div>
+        return <div className="FixedPosition">
             <h2>{this.props.name}</h2>
             <img className="ImageProductCard" src={this.props.photo} alt='Product Sample' />
             <p className="Text">Цена: <b>{this.props.price}</b> BYN</p> 

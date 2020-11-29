@@ -4,6 +4,7 @@ import './BunchOfProducts.css';
 import Shop from './Shop.jsx';
 import Product from './Product.jsx';
 import ProductCard from './ProductCard.jsx';
+import AddNewProduct from './AddNewProduct.jsx';
 
 class BunchOfProducts extends React.Component {
     static propTypes = {
@@ -25,6 +26,12 @@ class BunchOfProducts extends React.Component {
             productToDelete: [],
             selectedProduct: null,
             products: this.props.products,
+            shouldAddNewRow: false,
+            isValidName: false,
+            isValidPrice: false,
+            isValidCount: false,
+            isValidImage: false,
+            isValidBarcode: false
         };
     }
 
@@ -37,6 +44,10 @@ class BunchOfProducts extends React.Component {
             if(elem.barcode != code)
                 return elem;
         })})
+    }
+
+    addNewRow = () => {
+        this.setState({shouldAddNewRow: true, selectedProduct: null})
     }
 
     getProductCard = (code) => {
@@ -68,25 +79,29 @@ class BunchOfProducts extends React.Component {
         return <div className='BunchOfProducts'>
             <Shop shop={this.props.shop} />
             <div className="Flex">
-            <table className='Table'>
-                <thead>
-                    <tr className='Row'>
-                        <th className='Cell ColumnNames ToCenter'>Наименование товара</th>
-                        <th className='Cell ColumnNames ToCenter'>Цена (в BYN)</th>
-                        <th className='Cell ColumnNames ToCenter'>Остаток</th>
-                        <th className='Cell ColumnNames ToCenter'>Фото</th>
-                        <th className='Cell ColumnNames ToCenter'>Удаление</th>
-                    </tr>
-                </thead>
-                <tbody className='Row'>{productsCode}</tbody> 
-            </table>
-            <div className="ProductCard"> {this.state.selectedProduct != null && <ProductCard key={selectedProductInfo.barcode}
-                                     name={selectedProductInfo.name}
-                                     price={selectedProductInfo.price}
-                                     count={selectedProductInfo.count}
-                                     photo={selectedProductInfo.photo} />} </div>
+                <table className='Table'>
+                    <thead>
+                        <tr className='Row'>
+                            <th className='Cell ColumnNames ToCenter'>Наименование товара</th>
+                            <th className='Cell ColumnNames ToCenter'>Цена (в BYN)</th>
+                            <th className='Cell ColumnNames ToCenter'>Остаток</th>
+                            <th className='Cell ColumnNames ToCenter'>Фото</th>
+                            <th className='Cell ColumnNames ToCenter'>Удаление</th>
+                        </tr>
+                    </thead>
+                    <tbody className='Row'>{productsCode}</tbody> 
+                </table>
+                <div className="ProductCard"> {this.state.selectedProduct != null && <ProductCard key={selectedProductInfo.barcode}
+                                        name={selectedProductInfo.name}
+                                        price={selectedProductInfo.price}
+                                        count={selectedProductInfo.count}
+                                        photo={selectedProductInfo.photo} />} 
+                </div>
+                <div className="ProductCard"> {this.state.shouldAddNewRow == true && 
+                   <AddNewProduct />}
+                </div>
             </div>
-            
+            <input type="button" value="Добавить новый товар" onClick={this.addNewRow}/>
         </div>
     }
 }
