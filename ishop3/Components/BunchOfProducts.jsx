@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './BunchOfProducts.css';
 import Shop from './Shop.jsx';
 import Product from './Product.jsx';
+import ProductCard from './ProductCard.jsx';
 
 class BunchOfProducts extends React.Component {
     static propTypes = {
@@ -38,6 +39,13 @@ class BunchOfProducts extends React.Component {
         })})
     }
 
+    getProductCard = (code) => {
+         this.state.products.find(product => {
+             if(product.barcode == code)
+                return product;
+         })
+     }
+    
     render() {
         var productsCode = this.state.products.map( product => 
             <Product key={product.barcode}
@@ -51,19 +59,34 @@ class BunchOfProducts extends React.Component {
                     selectedProduct={this.state.selectedProduct}
                     productToDelete={this.state.productToDelete} />
                 );
+            
+        var selectedProductInfo = this.state.products.find(product => {
+            if(product.barcode == this.state.selectedProduct)
+                return product;
+        });
 
         return <div className='BunchOfProducts'>
             <Shop shop={this.props.shop} />
+            <div className="Flex">
             <table className='Table'>
-                <tr className='Row'>
-                    <th className='Cell ColumnNames ToCenter'> Наименование товара </th>
-                    <th className='Cell ColumnNames ToCenter'> Цена (в BYN) </th>
-                    <th className='Cell ColumnNames ToCenter'> Остаток </th>
-                    <th className='Cell ColumnNames ToCenter'> Фото </th>
-                    <th className='Cell ColumnNames ToCenter'> Удаление </th>
-                </tr>
-                <tbody className='Row'> {productsCode} </tbody> 
+                <thead>
+                    <tr className='Row'>
+                        <th className='Cell ColumnNames ToCenter'>Наименование товара</th>
+                        <th className='Cell ColumnNames ToCenter'>Цена (в BYN)</th>
+                        <th className='Cell ColumnNames ToCenter'>Остаток</th>
+                        <th className='Cell ColumnNames ToCenter'>Фото</th>
+                        <th className='Cell ColumnNames ToCenter'>Удаление</th>
+                    </tr>
+                </thead>
+                <tbody className='Row'>{productsCode}</tbody> 
             </table>
+            <div className="ProductCard"> {this.state.selectedProduct != null && <ProductCard key={selectedProductInfo.barcode}
+                                     name={selectedProductInfo.name}
+                                     price={selectedProductInfo.price}
+                                     count={selectedProductInfo.count}
+                                     photo={selectedProductInfo.photo} />} </div>
+            </div>
+            
         </div>
     }
 }

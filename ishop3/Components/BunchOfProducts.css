@@ -1,7 +1,10 @@
 .BunchOfProducts .Table {
-    width: 70%;
-    margin-left: 15%;
-    margin-right: 15%;
+    flex-grow: 5;
+    margin-left: 2%;
+    max-width: 75%;
+    /* width: 60%;
+    /* margin-left: 15%;
+    margin-right: 15%; */
     border: 3px solid black;
     border-collapse: collapse;
 }
@@ -41,3 +44,21 @@
     text-align: center;
 }
 
+.BunchOfProducts .Flex {
+    display: flex;
+}
+
+.BunchOfProducts .ProductCard
+{
+    flex-grow: 1;
+    margin-left: 2%;
+    max-width: 20%;
+    /* width: 20%;
+    margin-left: 15%; */
+}
+
+.BunchOfProducts .ImageProductCard
+{
+    width: 200px;
+    height: 200px; 
+}
