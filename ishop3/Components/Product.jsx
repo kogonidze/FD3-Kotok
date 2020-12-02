@@ -10,8 +10,10 @@ class Product extends React.Component {
         photo: PropTypes.string.isRequired,
         cbSelectRow: PropTypes.func.isRequired,
         cbDeleteRow: PropTypes.func.isRequired,
+        cbBeginEditProduct: PropTypes.func.isRequired,
         productToDelete: PropTypes.arrayOf(PropTypes.number),
         selectedProduct: PropTypes.number,
+        shouldAddNewRow: PropTypes.bool,
     };
 
     selectRow = () => {
@@ -31,6 +33,10 @@ class Product extends React.Component {
             this.props.cbDeleteRow(this.props.barcode);
     }
 
+    editRow = () => {
+        this.props.cbBeginEditProduct();
+    }
+
     render() {
         return <tr onClick={this.selectRow} style={{background: this.props.selectedProduct == this.props.barcode ? 'grey' : 'white'}} >
             <td className='Cell Text'> {this.props.name} </td>
@@ -40,7 +46,8 @@ class Product extends React.Component {
                 <img src={this.props.photo} alt='Product Sample' className='Image' /> 
             </td>
             <td className='Cell ToCenter'> 
-                <input type='button' value="Удалить" onClick={this.deleteRow} />
+                <input type='button' value="Удалить" onClick={this.deleteRow} disabled={this.props.shouldAddNewRow} />
+                <input type='button' value="Редактировать" onClick={this.editRow} disabled={this.props.shouldAddNewRow}/>
             </td>
         </tr>
         

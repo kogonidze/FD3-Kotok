@@ -2,10 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './BunchOfProducts.css';
 
-class AddNewProduct extends React.Component {
+class EditProduct extends React.Component {
     static propTypes = {
-        cbCancelAdditionNewProduct: PropTypes.func.isRequired,
-        cbConfirmationAdditionNewProduct: PropTypes.func.isRequired,
+        product: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            barcode: PropTypes.number.isRequired,
+            price: PropTypes.number.isRequired,
+            count: PropTypes.number.isRequired,
+            photo: PropTypes.string.isRequired,
+        }),
+        cbCancelEditionProduct: PropTypes.func.isRequired,
+        cbConfirmationEditionNewProduct: PropTypes.func.isRequired,
     }
 
     constructor(props) {
@@ -127,11 +134,11 @@ class AddNewProduct extends React.Component {
     }
 
     canceled = () => {
-        this.props.cbCancelAdditionNewProduct();
+        this.props.cbCancelEditionProduct();
     }
 
-    confirmationOfAddition = () => {
-        this.props.cbConfirmationAdditionNewProduct(this.state.name, parseInt(this.state.price, 10), parseInt(this.state.count, 10), 
+    confirmationOfEdition = () => {
+        this.props.cbConfirmationEditionNewProduct(this.state.name, parseInt(this.state.price, 10), parseInt(this.state.count, 10), 
             this.state.image, parseInt(this.state.barcode, 10));
     }
 
@@ -139,34 +146,34 @@ class AddNewProduct extends React.Component {
     {
         return <form className="BunchOfProducts">
             <fieldset>
-                <legend>Добавление нового товара</legend>
+                <legend>Редактирование существующего товара</legend>
                 <p>
                     <label className="Label">Имя:</label>
-                    <input id="name_input" type="text" size="15" onChange={this.addedName}/>                                     
+                    <input id="name_input" type="text" size="15" onChange={this.addedName} defaultValue={this.props.product.name}/>                                     
                 </p>
                 <span>{this.state.invalidNameMessage}</span>
                 <p>
                     <label className="Label">Цена:</label>
-                    <input id="price_input" type="text" size="15" onChange={this.addedPrice}/>
+                    <input id="price_input" type="text" size="15" onChange={this.addedPrice} defaultValue={this.props.product.price} />
                 </p>
                 <span>{this.state.invalidPriceMessage}</span>
                 <p>
                     <label className="Label">Остаток:</label>
-                    <input id="rest_input" type="text" size="15" onChange={this.addedCount}/>
+                    <input id="rest_input" type="text" size="15" onChange={this.addedCount} defaultValue={this.props.product.count} />
                 </p>
                 <span>{this.state.invalidCountMessage}</span>
                 <p>
                     <label className="Label">Фото:</label>
-                    <input id="photo_input" type="text" size="15" onChange={this.addedImage}/>
+                    <input id="photo_input" type="text" size="15" onChange={this.addedImage} defaultValue={this.props.product.photo} />
                 </p>
                 <span>{this.state.invalidImageMessage}</span>
                 <p>
                     <label className="Label">Штрихкод:</label>
-                    <input id="barecode_input" type="text" size="15" onChange={this.addedBarcode}/>
+                    <input id="barecode_input" type="text" size="15" onChange={this.addedBarcode} defaultValue={this.props.product.barcode} />
                 </p>
                 <span>{this.state.invalidBarcodeMessage}</span>
                 <br/>
-                <input type="button" value="Добавить" onClick={this.confirmationOfAddition} 
+                <input type="button" value="Сохранить" onClick={this.confirmationOfEdition} 
             disabled={!(this.state.isValidName && this.state.isValidPrice && this.state.isValidCount 
             && this.state.isValidImage && this.state.isValidBarcode)}/>
                 <input type="button" value="Отмена" onClick={this.canceled}/>
@@ -175,4 +182,4 @@ class AddNewProduct extends React.Component {
     }
 }
 
-export default AddNewProduct;
+export default EditProduct;

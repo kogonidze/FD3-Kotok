@@ -5,6 +5,7 @@ import Shop from './Shop.jsx';
 import Product from './Product.jsx';
 import ProductCard from './ProductCard.jsx';
 import AddNewProduct from './AddNewProduct.jsx';
+import EditNewProduct from './EditProduct.jsx';
 
 class BunchOfProducts extends React.Component {
     static propTypes = {
@@ -27,16 +28,35 @@ class BunchOfProducts extends React.Component {
             selectedProduct: null,
             products: this.props.products,
             shouldAddNewRow: false,
-            isValidName: false,
-            isValidPrice: false,
-            isValidCount: false,
-            isValidImage: false,
-            isValidBarcode: false
+            shouldEditRow: false,
         };
     }
 
+    cbBeginEditProduct = () => {
+        this.setState({shouldEditRow: true})
+    }
+
+    cbConfirmationAdditionNewProduct = (name, price, count, photo, barcode) => {
+        var tempArr = this.state.products.slice();
+        tempArr.push({name: name, price: price, count: count, photo: photo, barcode: barcode});
+        this.setState({products: tempArr, shouldAddNewRow: false});
+    }
+
+    cbConfirmationEditionNewProduct = (name, price, count, photo, barcode) => {
+
+    }
+
+    cbCancelAdditionNewProduct = () => {
+        this.setState({shouldAddNewRow: false})
+    }
+
+    cbCancelEditionProduct = () => {
+        this.setState({shouldEditRow: false})
+    }
+
     cbSelectRow = (code) => {
-        this.setState({selectedProduct: code});
+        if(!this.state.shouldAddNewRow)
+            this.setState({selectedProduct: code});
     }
 
     cbDeleteRow = (code) => {
@@ -67,8 +87,11 @@ class BunchOfProducts extends React.Component {
                     barcode={product.barcode}
                     cbSelectRow={this.cbSelectRow}
                     cbDeleteRow={this.cbDeleteRow}
+                    cbBeginEditProduct={this.cbBeginEditProduct}
                     selectedProduct={this.state.selectedProduct}
-                    productToDelete={this.state.productToDelete} />
+                    productToDelete={this.state.productToDelete} 
+                    shouldAddNewRow={this.state.shouldAddNewRow}
+                    />
                 );
             
         var selectedProductInfo = this.state.products.find(product => {
@@ -95,13 +118,19 @@ class BunchOfProducts extends React.Component {
                                         name={selectedProductInfo.name}
                                         price={selectedProductInfo.price}
                                         count={selectedProductInfo.count}
-                                        photo={selectedProductInfo.photo} />} 
+                                        photo={selectedProductInfo.photo} 
+                                        />} 
                 </div>
                 <div className="ProductCard"> {this.state.shouldAddNewRow == true && 
-                   <AddNewProduct />}
+                   <AddNewProduct cbCancelAdditionNewProduct={this.cbCancelAdditionNewProduct} 
+                   cbConfirmationAdditionNewProduct={this.cbConfirmationAdditionNewProduct} /> }
+
+                   {this.state.shouldEditRow == true && <EditNewProduct product={selectedProductInfo} 
+                   cbCancelEditionProduct={this.cbCancelEditionProduct} 
+                   cbConfirmationEditionNewProduct = {this.cbConfirmationEditionNewProduct} />}
                 </div>
             </div>
-            <input type="button" value="Добавить новый товар" onClick={this.addNewRow}/>
+            <input type="button" value="Добавить новый товар" onClick={this.addNewRow} disabled={this.state.shouldAddNewRow}/>
         </div>
     }
 }
