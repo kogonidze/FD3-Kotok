@@ -9,7 +9,7 @@ class EditProduct extends React.Component {
             barcode: PropTypes.number.isRequired,
             price: PropTypes.number.isRequired,
             count: PropTypes.number.isRequired,
-            photo: PropTypes.string.isRequired,
+            image: PropTypes.string.isRequired,
         }),
         cbCancelEditionProduct: PropTypes.func.isRequired,
         cbConfirmationEditionNewProduct: PropTypes.func.isRequired,
@@ -164,7 +164,7 @@ class EditProduct extends React.Component {
                 <span>{this.state.invalidCountMessage}</span>
                 <p>
                     <label className="Label">Фото:</label>
-                    <input id="photo_input" type="text" size="15" onChange={this.addedImage} defaultValue={this.props.product.photo} />
+                    <input id="image_input" type="text" size="15" onChange={this.addedImage} defaultValue={this.props.product.image} />
                 </p>
                 <span>{this.state.invalidImageMessage}</span>
                 <p>

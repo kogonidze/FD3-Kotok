@@ -6,6 +6,7 @@ import Product from './Product.jsx';
 import ProductCard from './ProductCard.jsx';
 import AddNewProduct from './AddNewProduct.jsx';
 import EditNewProduct from './EditProduct.jsx';
+import AddOrEditProduct from './AddOrEditProduct.jsx';
 
 class BunchOfProducts extends React.Component {
     static propTypes = {
@@ -16,7 +17,7 @@ class BunchOfProducts extends React.Component {
                 barcode: PropTypes.number.isRequired,
                 price: PropTypes.number.isRequired,
                 count: PropTypes.number.isRequired,
-                photo: PropTypes.string.isRequired,
+                image: PropTypes.string.isRequired,
             })
         ),
     };
@@ -29,21 +30,26 @@ class BunchOfProducts extends React.Component {
             products: this.props.products,
             shouldAddNewRow: false,
             shouldEditRow: false,
+            shouldViewModeOn: false,
         };
     }
 
-    cbBeginEditProduct = () => {
-        this.setState({shouldEditRow: true})
+    cbBeginEditProduct = (code) => {
+        this.setState({shouldEditRow: true, selectedProduct: code});
     }
 
-    cbConfirmationAdditionNewProduct = (name, price, count, photo, barcode) => {
+    cbConfirmationAdditionNewProduct = (name, price, count, image, barcode) => {
         var tempArr = this.state.products.slice();
-        tempArr.push({name: name, price: price, count: count, photo: photo, barcode: barcode});
+        tempArr.push({name: name, price: price, count: count, image: image, barcode: barcode});
         this.setState({products: tempArr, shouldAddNewRow: false});
     }
 
-    cbConfirmationEditionNewProduct = (name, price, count, photo, barcode) => {
-
+    cbConfirmationEditionProduct = (name, price, count, image, barcode) => {
+        var newItem = {name: name, price: price, count: count, image: image, barcode: barcode};
+        var tempArr = this.state.products.slice();
+        var itemIndex = tempArr.findIndex(x => x.barcode == barcode);
+        tempArr[itemIndex] = newItem;
+        this.setState({products: tempArr, shouldEditRow: false});
     }
 
     cbCancelAdditionNewProduct = () => {
@@ -56,7 +62,7 @@ class BunchOfProducts extends React.Component {
 
     cbSelectRow = (code) => {
         if(!this.state.shouldAddNewRow)
-            this.setState({selectedProduct: code});
+            this.setState({selectedProduct: code, shouldViewModeOn: true});
     }
 
     cbDeleteRow = (code) => {
@@ -76,6 +82,12 @@ class BunchOfProducts extends React.Component {
                 return product;
          })
      }
+
+    createNewProduct = () => {
+        var tempArr = this.state.products.slice();
+        tempArr.push({name: "", price: "", count: "", image: "", barcode: ""});
+        this.setState({products: tempArr});
+    }
     
     render() {
         var productsCode = this.state.products.map( product => 
@@ -83,7 +95,7 @@ class BunchOfProducts extends React.Component {
                     name={product.name} 
                     price={product.price} 
                     count={product.count}
-                    photo={product.photo}
+                    image={product.image}
                     barcode={product.barcode}
                     cbSelectRow={this.cbSelectRow}
                     cbDeleteRow={this.cbDeleteRow}
@@ -114,23 +126,32 @@ class BunchOfProducts extends React.Component {
                     </thead>
                     <tbody className='Row'>{productsCode}</tbody> 
                 </table>
-                <div className="ProductCard"> {this.state.selectedProduct != null && <ProductCard key={selectedProductInfo.barcode}
+                <div className="ProductCard"> {this.state.shouldViewModeOn && !this.state.shouldEditRow &&
+                                    <ProductCard key={selectedProductInfo.barcode}
                                         name={selectedProductInfo.name}
                                         price={selectedProductInfo.price}
                                         count={selectedProductInfo.count}
-                                        photo={selectedProductInfo.photo} 
+                                        image={selectedProductInfo.image} 
                                         />} 
                 </div>
-                <div className="ProductCard"> {this.state.shouldAddNewRow == true && 
+                <div className="ProductCard"> { this.state.shouldAddNewRow && 
+                <AddOrEditProduct cbCancelAdditionNewProduct={this.cbCancelAdditionNewProduct} 
+                cbConfirmationAdditionNewProduct={this.cbConfirmationAdditionNewProduct} mode="Additon" />}
+
+                { this.state.shouldEditRow && this.state.selectedProduct && 
+                <AddOrEditProduct cbCancelEditionNewProduct={this.cbCancelEditionProduct} 
+                cbConfirmationEditionProduct={this.cbConfirmationEditionProduct} mode="Edition" product={selectedProductInfo} />}
+                
+                {/* {this.state.shouldAddNewRow == true && 
                    <AddNewProduct cbCancelAdditionNewProduct={this.cbCancelAdditionNewProduct} 
                    cbConfirmationAdditionNewProduct={this.cbConfirmationAdditionNewProduct} /> }
 
                    {this.state.shouldEditRow == true && <EditNewProduct product={selectedProductInfo} 
                    cbCancelEditionProduct={this.cbCancelEditionProduct} 
-                   cbConfirmationEditionNewProduct = {this.cbConfirmationEditionNewProduct} />}
+                   cbConfirmationEditionNewProduct = {this.cbConfirmationEditionNewProduct} />} */}
                 </div>
             </div>
-            <input type="button" value="Добавить новый товар" onClick={this.addNewRow} disabled={this.state.shouldAddNewRow}/>
+            <input type="button" value="Добавить новый товар" onClick={this.addNewRow} disabled={this.state.shouldAddNewRow || this.state.shouldEditRow}/>
         </div>
     }
 }

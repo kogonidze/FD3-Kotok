@@ -7,7 +7,7 @@ class Product extends React.Component {
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         count: PropTypes.number.isRequired,
-        photo: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
         cbSelectRow: PropTypes.func.isRequired,
         cbDeleteRow: PropTypes.func.isRequired,
         cbBeginEditProduct: PropTypes.func.isRequired,
@@ -34,7 +34,9 @@ class Product extends React.Component {
     }
 
     editRow = () => {
-        this.props.cbBeginEditProduct();
+        this.props.cbBeginEditProduct(this.props.barcode);
+        //this.selectRow();
+        //this.props.cbSelectRow(this.props.barcode);
     }
 
     render() {
@@ -43,7 +45,7 @@ class Product extends React.Component {
             <td className='Cell Text ToCenter'> {this.props.price} </td>
             <td className='Cell Text ToCenter'> {this.props.count} </td>
             <td className='Cell'> 
-                <img src={this.props.photo} alt='Product Sample' className='Image' /> 
+                <img src={this.props.image} alt='Product Sample' className='Image' /> 
             </td>
             <td className='Cell ToCenter'> 
                 <input type='button' value="Удалить" onClick={this.deleteRow} disabled={this.props.shouldAddNewRow} />

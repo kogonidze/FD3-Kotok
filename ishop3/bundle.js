@@ -10742,7 +10742,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
    *       description: Props.string,
    *
    *       // A required enum prop named "category".
-   *       category: Props.oneOf(['News','Photos']).isRequired,
+   *       category: Props.oneOf(['News','images']).isRequired,
    *
    *       // A prop named "dialog" that requires an instance of Dialog.
    *       dialog: Props.instanceOf(Dialog).isRequired
@@ -22860,7 +22860,7 @@ var BunchOfProducts = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass(
                 barcode: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.number.isRequired,
                 price: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.number.isRequired,
                 count: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.number.isRequired,
-                photo: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.string.isRequired,
+                image: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.string.isRequired,
             })
         ),
     },
@@ -22894,7 +22894,7 @@ var BunchOfProducts = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass(
                                 name: product.name, 
                                 price: product.price, 
                                 count: product.count,
-                                photo: product.photo,
+                                image: product.image,
                                 barcode: product.barcode,
                                 cbSelectRow: this.cbSelectRow,
                                 cbDeleteRow: this.cbDeleteRow,
@@ -22976,7 +22976,7 @@ var Product = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
         name: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.string.isRequired,
         price: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.number.isRequired,
         count: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.number.isRequired,
-        photo: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.string.isRequired,
+        image: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.string.isRequired,
         cbSelectRow: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.func.isRequired,
         cbDeleteRow: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.func.isRequired,
         productToDelete: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.arrayOf(__WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.number),
@@ -23006,7 +23006,7 @@ var Product = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.DOM.td({className: 'Cell Text ToCenter'}, this.props.price),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.DOM.td({className: 'Cell Text ToCenter'}, this.props.count),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.DOM.td({className: 'Cell'}, 
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.DOM.img({src: this.props.photo, alt:'Product Sample', className: 'Image'})),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.DOM.img({src: this.props.image, alt:'Product Sample', className: 'Image'})),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.DOM.td({className: 'Cell ToCenter'}, 
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.DOM.input({type: 'button', value: "Удалить", onClick: this.deleteRow})));
     },
@@ -23018,7 +23018,7 @@ var Product = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
 /* 192 */
 /***/ (function(module, exports) {
 
-module.exports = [{"name":"Гипс строительный Тайфун Мастер №35, 2 кг","price":2.18,"photo":"https://mtr.by/upload/iblock/7a3/Tayfun35.png","count":2086,"barcode":4813539496058},{"name":"Штукатурка цементная Люкс","price":6,"photo":"https://mtr.by/upload/iblock/69b/lux_shtuk.png","count":5964,"barcode":4815346651473},{"name":"Шпатлевка акриловая финишная ACRYL-PUTZ FINISH, SNIEZKA","price":25.56,"photo":"https://mtr.by/upload/iblock/88f/AP-Finish.png","count":1343,"barcode":5904451288679},{"name":"Клей Тайфун для плитки гелевый GEOFLEX высокоэластичный, 25 кг","price":23.99,"photo":"https://mtr.by/upload/resize_cache/iblock/f56/800_600_140cd750bba9870f18aada2478b24840a/2d4fd85d1f28f622c34650711570dab1.png","count":1124,"barcode":4819904678796},{"name":"Блок газосиликатный стеновой 625х250х250","price":6.44,"photo":"https://mtr.by/upload/iblock/a5b/5d6f1b7bf606e7733c5940b003e74595.jpg","count":68953,"barcode":4816674777576},{"name":"Кирпич керамический облицовочный КРО-175, 250х120х65мм","price":0.68,"photo":"https://mtr.by/upload/iblock/632/kirpich-m175-obolski.jpg","count":73006,"barcode":4811234567890},{"name":"Радиатор чугунный 2КПМ-90х500 (12 секций)","price":359.27,"photo":"https://mtr.by/upload/iblock/b52/2%D0%9A%D0%9F%D0%9C-90.500.png","count":124,"barcode":4819876543210},{"name":"Радиатор алюминиевый G 500F","price":109.34,"photo":"https://mtr.by/upload/iblock/ea6/G500F.png","count":113,"barcode":4813859684936},{"name":"Водонагреватель Ariston PRO1 R 80 V PL","price":349,"photo":"https://content2.onliner.by/catalog/device/main/30bd6195780bf73f6d697d8c6089e943.jpeg","count":21,"barcode":8023458959234},{"name":"Дрель ударная Bosch EasyImpact 500","price":138.02,"photo":"https://mtr.by/upload/iblock/7da/good_img_51df6454-baee-11e7-80c9-00505684744b_600.jpg","count":92,"barcode":4139456884371}]
+module.exports = [{"name":"Гипс строительный Тайфун Мастер №35, 2 кг","price":2.18,"image":"https://mtr.by/upload/iblock/7a3/Tayfun35.png","count":2086,"barcode":4813539496058},{"name":"Штукатурка цементная Люкс","price":6,"image":"https://mtr.by/upload/iblock/69b/lux_shtuk.png","count":5964,"barcode":4815346651473},{"name":"Шпатлевка акриловая финишная ACRYL-PUTZ FINISH, SNIEZKA","price":25.56,"image":"https://mtr.by/upload/iblock/88f/AP-Finish.png","count":1343,"barcode":5904451288679},{"name":"Клей Тайфун для плитки гелевый GEOFLEX высокоэластичный, 25 кг","price":23.99,"image":"https://mtr.by/upload/resize_cache/iblock/f56/800_600_140cd750bba9870f18aada2478b24840a/2d4fd85d1f28f622c34650711570dab1.png","count":1124,"barcode":4819904678796},{"name":"Блок газосиликатный стеновой 625х250х250","price":6.44,"image":"https://mtr.by/upload/iblock/a5b/5d6f1b7bf606e7733c5940b003e74595.jpg","count":68953,"barcode":4816674777576},{"name":"Кирпич керамический облицовочный КРО-175, 250х120х65мм","price":0.68,"image":"https://mtr.by/upload/iblock/632/kirpich-m175-obolski.jpg","count":73006,"barcode":4811234567890},{"name":"Радиатор чугунный 2КПМ-90х500 (12 секций)","price":359.27,"image":"https://mtr.by/upload/iblock/b52/2%D0%9A%D0%9F%D0%9C-90.500.png","count":124,"barcode":4819876543210},{"name":"Радиатор алюминиевый G 500F","price":109.34,"image":"https://mtr.by/upload/iblock/ea6/G500F.png","count":113,"barcode":4813859684936},{"name":"Водонагреватель Ariston PRO1 R 80 V PL","price":349,"image":"https://content2.onliner.by/catalog/device/main/30bd6195780bf73f6d697d8c6089e943.jpeg","count":21,"barcode":8023458959234},{"name":"Дрель ударная Bosch EasyImpact 500","price":138.02,"image":"https://mtr.by/upload/iblock/7da/good_img_51df6454-baee-11e7-80c9-00505684744b_600.jpg","count":92,"barcode":4139456884371}]
 
 /***/ })
 /******/ ]);
