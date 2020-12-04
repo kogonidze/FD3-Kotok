@@ -31,16 +31,24 @@ class BunchOfProducts extends React.Component {
             shouldAddNewRow: false,
             shouldEditRow: false,
             shouldViewModeOn: false,
+            isChangedProduct: false,
         };
+    }
+
+    cbChangedProduct = () => {
+        this.setState({isChangedProduct: true});
     }
 
     cbBeginEditProduct = (code) => {
         this.setState({shouldEditRow: true, selectedProduct: code});
     }
 
+    getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+    }
     cbConfirmationAdditionNewProduct = (name, price, count, image, barcode) => {
         var tempArr = this.state.products.slice();
-        tempArr.push({name: name, price: price, count: count, image: image, barcode: barcode});
+        tempArr.push({name: name, price: price, count: count, image: image, barcode: this.getRandomInt(10000000)});
         this.setState({products: tempArr, shouldAddNewRow: false});
     }
 
@@ -49,7 +57,7 @@ class BunchOfProducts extends React.Component {
         var tempArr = this.state.products.slice();
         var itemIndex = tempArr.findIndex(x => x.barcode == barcode);
         tempArr[itemIndex] = newItem;
-        this.setState({products: tempArr, shouldEditRow: false});
+        this.setState({products: tempArr, shouldEditRow: false, isChangedProduct: false});
     }
 
     cbCancelAdditionNewProduct = () => {
@@ -57,11 +65,11 @@ class BunchOfProducts extends React.Component {
     }
 
     cbCancelEditionProduct = () => {
-        this.setState({shouldEditRow: false})
+        this.setState({shouldEditRow: false, isChangedProduct: false})
     }
 
     cbSelectRow = (code) => {
-        if(!this.state.shouldAddNewRow)
+        if(!this.state.shouldAddNewRow && !this.state.isChangedProduct)
             this.setState({selectedProduct: code, shouldViewModeOn: true});
     }
 
@@ -140,7 +148,8 @@ class BunchOfProducts extends React.Component {
 
                 { this.state.shouldEditRow && this.state.selectedProduct && 
                 <AddOrEditProduct cbCancelEditionNewProduct={this.cbCancelEditionProduct} 
-                cbConfirmationEditionProduct={this.cbConfirmationEditionProduct} mode="Edition" product={selectedProductInfo} />}
+                cbConfirmationEditionProduct={this.cbConfirmationEditionProduct} cbIsChangedProduct={this.cbChangedProduct} 
+                mode="Edition" product={selectedProductInfo} />}
                 
                 {/* {this.state.shouldAddNewRow == true && 
                    <AddNewProduct cbCancelAdditionNewProduct={this.cbCancelAdditionNewProduct} 
