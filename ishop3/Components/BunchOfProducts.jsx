@@ -31,16 +31,21 @@ class BunchOfProducts extends React.Component {
             shouldAddNewRow: false,
             shouldEditRow: false,
             shouldViewModeOn: false,
-            isChangedProduct: false,
+            isOnChangedProduct: false,
         };
     }
 
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return this.state.isOnChangedProduct != nextState.isOnChangedProduct;
+    // }
+        
     cbChangedProduct = () => {
-        this.setState({isChangedProduct: true});
+        this.setState({isOnChangedProduct: true});
     }
 
     cbBeginEditProduct = (code) => {
-        this.setState({shouldEditRow: true, selectedProduct: code});
+        if(!this.state.isOnChangedProduct)
+            this.setState({shouldEditRow: true, selectedProduct: code});
     }
 
     getRandomInt(max) {
@@ -57,7 +62,7 @@ class BunchOfProducts extends React.Component {
         var tempArr = this.state.products.slice();
         var itemIndex = tempArr.findIndex(x => x.barcode == barcode);
         tempArr[itemIndex] = newItem;
-        this.setState({products: tempArr, shouldEditRow: false, isChangedProduct: false});
+        this.setState({products: tempArr, shouldEditRow: false, isOnChangedProduct: false});
     }
 
     cbCancelAdditionNewProduct = () => {
@@ -65,12 +70,12 @@ class BunchOfProducts extends React.Component {
     }
 
     cbCancelEditionProduct = () => {
-        this.setState({shouldEditRow: false, isChangedProduct: false})
+        this.setState({shouldEditRow: false, isOnChangedProduct: false})
     }
 
     cbSelectRow = (code) => {
-        if(!this.state.shouldAddNewRow && !this.state.isChangedProduct)
-            this.setState({selectedProduct: code, shouldViewModeOn: true});
+        if(!this.state.shouldAddNewRow && !this.state.isOnChangedProduct)
+            this.setState({selectedProduct: code, shouldViewModeOn: true, shouldEditRow: false});
     }
 
     cbDeleteRow = (code) => {
@@ -91,12 +96,6 @@ class BunchOfProducts extends React.Component {
          })
      }
 
-    createNewProduct = () => {
-        var tempArr = this.state.products.slice();
-        tempArr.push({name: "", price: "", count: "", image: "", barcode: ""});
-        this.setState({products: tempArr});
-    }
-    
     render() {
         var productsCode = this.state.products.map( product => 
             <Product key={product.barcode}
@@ -111,6 +110,7 @@ class BunchOfProducts extends React.Component {
                     selectedProduct={this.state.selectedProduct}
                     productToDelete={this.state.productToDelete} 
                     shouldAddNewRow={this.state.shouldAddNewRow}
+                    shouldEditRow={this.state.shouldEditRow}
                     />
                 );
             
@@ -134,7 +134,8 @@ class BunchOfProducts extends React.Component {
                     </thead>
                     <tbody className='Row'>{productsCode}</tbody> 
                 </table>
-                <div className="ProductCard"> {this.state.shouldViewModeOn && !this.state.shouldEditRow &&
+                <div className="ProductCard"> {!this.state.shouldEditRow &&
+                                    this.state.selectedProduct &&
                                     <ProductCard key={selectedProductInfo.barcode}
                                         name={selectedProductInfo.name}
                                         price={selectedProductInfo.price}
@@ -144,7 +145,8 @@ class BunchOfProducts extends React.Component {
                 </div>
                 <div className="ProductCard"> { this.state.shouldAddNewRow && 
                 <AddOrEditProduct cbCancelAdditionNewProduct={this.cbCancelAdditionNewProduct} 
-                cbConfirmationAdditionNewProduct={this.cbConfirmationAdditionNewProduct} mode="Additon" />}
+                cbConfirmationAdditionNewProduct={this.cbConfirmationAdditionNewProduct} 
+                 mode="Additon" />}
 
                 { this.state.shouldEditRow && this.state.selectedProduct && 
                 <AddOrEditProduct cbCancelEditionNewProduct={this.cbCancelEditionProduct} 

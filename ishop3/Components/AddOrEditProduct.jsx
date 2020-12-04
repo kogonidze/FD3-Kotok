@@ -19,6 +19,11 @@ class AddOrEditProduct extends React.Component {
         cbIsChangedProduct: PropTypes.func.isRequired,
     }
 
+    // constructor(props) {
+    //     super(props);
+    //     this.state = { name: this.props.name}
+    // }
+
     state = {
         invalidNameMessage: "",
         invalidPriceMessage: "",
@@ -36,6 +41,7 @@ class AddOrEditProduct extends React.Component {
         isValidImage: (this.props.mode == "Edition")?true: false,
         //isValidBarcode: (this.props.mode == "Edition")?true: false,
     }
+
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.product.name !== this.state.name) {
@@ -60,8 +66,7 @@ class AddOrEditProduct extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return this.state.name != nextState.name || this.state.count != nextState.count || this.state.price != nextState.price
-        || this.state.image != nextState.image;
+        return true;
     }
 
     onChangeProduct = () => {
@@ -83,97 +88,78 @@ class AddOrEditProduct extends React.Component {
     addedName = (EO) => {       
         if(this.checkingForEmptyString(EO.target.value))
         {
+            (this.props.mode == "Edition")? this.onChangeProduct() : null;
             this.setState({isValidName: false});
             this.setState({invalidNameMessage: "Поле Имя не должно быть пустым!"});
-            this.onChangeProduct();
         }
         else
         {
+            (this.props.mode == "Edition")? this.onChangeProduct() : null;
             this.setState({name: EO.target.value});
             this.setState({isValidName: true});
             this.setState({invalidNameMessage: ""});
-            this.onChangeProduct();
         }
     }
 
     addedPrice = (EO) => {
         if(this.checkingForEmptyString(EO.target.value))
         {
+            (this.props.mode == "Edition")? this.onChangeProduct() : null;
             this.setState({isValidPrice: false});
             this.setState({invalidPriceMessage: "Поле Цена не должно быть пустым!"});
-            this.onChangeProduct();
         }
         else if(!this.checkingForNumeric(EO.target.value))
         {
+            (this.props.mode == "Edition")? this.onChangeProduct() : null;
             this.setState({isValidPrice: false});
             this.setState({invalidPriceMessage: "Поле Цена должно быть десятичным числом!"});
-            this.onChangeProduct();
         }
         else
         {
+            (this.props.mode == "Edition")? this.onChangeProduct() : null;
             this.setState({price: EO.target.value});
             this.setState({isValidPrice: true});
             this.setState({invalidPriceMessage: ""});
-            this.onChangeProduct();
         }
     }
 
     addedCount = (EO) => {
         if(this.checkingForEmptyString(EO.target.value))
         {
+            (this.props.mode == "Edition")? this.onChangeProduct() : null;
             this.setState({isValidCount: false});
             this.setState({invalidCountMessage: "Поле Остаток не должно быть пустым!"});
-            this.onChangeProduct();
         }
         else if(!this.checkingForNumeric(EO.target.value))
         {
+            (this.props.mode == "Edition")? this.onChangeProduct() : null;
             this.setState({isValidCount: false});
             this.setState({invalidCountMessage: "Поле Остаток должно быть десятичным числом!"});
-            this.onChangeProduct();
         }
         else
         {
+            (this.props.mode == "Edition")? this.onChangeProduct() : null;
             this.setState({count: EO.target.value});
             this.setState({isValidCount: true});
             this.setState({invalidCountMessage: ""});
-            this.onChangeProduct();
         }
     }
 
     addedImage = (EO) => {
         if(this.checkingForEmptyString(EO.target.value))
         {
+            (this.props.mode == "Edition")? this.onChangeProduct() : null;
             this.setState({isValidImage: false});
             this.setState({invalidImageMessage: "Поле Фото не должно быть пустым!"});
-            this.onChangeProduct();
         }
         else
         {
+            (this.props.mode == "Edition")? this.onChangeProduct() : null;
             this.setState({image: EO.target.value});
             this.setState({isValidImage: true});
             this.setState({invalidImageMessage: ""});
-            this.onChangeProduct();
         }
     }
-
-    // addedBarcode = (EO) => {
-    //     if(this.checkingForEmptyString(EO.target.value))
-    //     {
-    //         this.setState({isValidBarcode: false});
-    //         this.setState({invalidBarcodeMessage: "Поле Штрихкод не должно быть пустым!"})
-    //     }
-    //     else if(!this.checkingForNumeric(EO.target.value))
-    //     {
-    //         this.setState({isValidBarcode: false});
-    //         this.setState({invalidBarcodeMessage: "Поле Штрихкод должно быть десятичным числом!"})
-    //     }
-    //     else
-    //     {
-    //         this.setState({barcode: EO.target.value});
-    //         this.setState({isValidBarcode: true});
-    //         this.setState({invalidBarcodeMessage: ""});
-    //     }
-    // }
 
     canceled = () => {
         if(typeof this.props.cbCancelAdditionNewProduct === "function")
@@ -208,33 +194,27 @@ class AddOrEditProduct extends React.Component {
                 <p>
                     <label className="Label">Имя:</label>
                     <input id="name_input" type="text" size="15" onChange={this.addedName} 
-                    value={this.state.name} />                                     
+                    defaultValue={this.state.name} />                                     
                 </p>
                 <span>{this.state.invalidNameMessage}</span>
                 <p>
                     <label className="Label">Цена:</label>
                     <input id="price_input" type="text" size="15" onChange={this.addedPrice} 
-                    value={this.state.price}/>
+                    defaultValue={this.state.price}/>
                 </p>
                 <span>{this.state.invalidPriceMessage}</span>
                 <p>
                     <label className="Label">Остаток:</label>
                     <input id="rest_input" type="text" size="15" onChange={this.addedCount} 
-                    value={this.state.count}/>
+                    defaultValue={this.state.count}/>
                 </p>
                 <span>{this.state.invalidCountMessage}</span>
                 <p>
                     <label className="Label">Фото:</label>
                     <input id="image_input" type="text" size="15" onChange={this.addedImage}  
-                    value={this.state.image}/>
+                    defaultValue={this.state.image}/>
                 </p>
                 <span>{this.state.invalidImageMessage}</span>
-                {/* <p>
-                    <label className="Label">Штрихкод:</label>
-                    <input id="barecode_input" type="text" size="15" onChange={this.addedBarcode} 
-                    value={this.state.barcode} />
-                </p>
-                <span>{this.state.invalidBarcodeMessage}</span> */}
                 <br/>
                 <input type="button" value={this.props.mode=="Edition" ? "Сохранить" : "Добавить"} onClick={this.confirmation} 
             disabled={!(this.state.isValidName && this.state.isValidPrice && this.state.isValidCount 
