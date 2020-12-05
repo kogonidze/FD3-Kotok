@@ -5,7 +5,7 @@ import './BunchOfProducts.css';
 import {AddMode, EditMode, EmptyString, HeadingForAddNewProduct, HeadingForEditNewProduct, InvalidCountEmptyMessage, 
     InvalidCountNotNumberMessage, InvalidImageEmptyMessage, InvalidNameEmptyMessage, InvalidPriceEmptyMessage, 
     InvalidPriceNotNumberMessage, RegularExpressionPatternForCheckingOnNumeric, ConfirmSavingEditionProductButtonName, 
-    ConfirmAdditionNewProductButtonName, CancelButtonName} from './Constants.jsx';
+    ConfirmAdditionNewProductButtonName, CancelButtonName, GreenColor, RedColor} from './Constants.jsx';
 
 class AddOrEditProduct extends React.Component {
     static propTypes = {
@@ -165,25 +165,25 @@ class AddOrEditProduct extends React.Component {
                 <p>
                     <label className="Label">Имя:</label>
                     <input name="name_input" type="text" onChange={this.changedValueOnInput} 
-                    value={this.state.name} style={{borderColor: this.state.isValidName ? "green" : "red"}}/>                                     
+                    value={this.state.name} style={{borderColor: this.state.isValidName ? GreenColor: RedColor}}/>                                     
                 </p>
                 <span className="FailedValidationMessage">{this.state.invalidNameMessage}</span>
                 <p>
                     <label className="Label">Цена:</label>
                     <input name="price_input" type="text" onChange={this.changedValueOnInput} 
-                    value={this.state.price} style={{borderColor: this.state.isValidPrice ? "green" : "red"}}/>
+                    value={this.state.price} style={{borderColor: this.state.isValidPrice ? GreenColor : RedColor}}/>
                 </p>
                 <span className="FailedValidationMessage">{this.state.invalidPriceMessage}</span>
                 <p>
                     <label className="Label">Остаток:</label>
                     <input name="rest_input" type="text" onChange={this.changedValueOnInput} 
-                    value={this.state.count} style={{borderColor: this.state.isValidCount ? "green" : "red"}}/>
+                    value={this.state.count} style={{borderColor: this.state.isValidCount ? GreenColor : RedColor}}/>
                 </p>
                 <span className="FailedValidationMessage">{this.state.invalidCountMessage}</span>
                 <p>
                     <label className="Label">Фото:</label>
                     <input name="image_input" type="text" onChange={this.changedValueOnInput}  
-                    value={this.state.image} style={{borderColor: this.state.isValidImage ? "green" : "red"}}/>
+                    value={this.state.image} style={{borderColor: this.state.isValidImage ? GreenColor : RedColor}}/>
                 </p>
                 <span className="FailedValidationMessage">{this.state.invalidImageMessage}</span>
                 <br/>

@@ -29,3 +29,17 @@ export const ConfirmSavingEditionProductButtonName = "Сохранить";
 export const CancelButtonName = "Отмена";
 
 export const BeginAdditionNewProductButtonName = "Добавить новый товар";
+
+export const DeleteProductButtonName = "Удалить";
+
+export const EditProductButtonName = "Редактировать";
+
+export const ConfitmToDeleteProductQuestion = "Вы действительно хотите удалить элемент?";
+
+export const GreyColor = "grey";
+
+export const WhiteColor = "white";
+
+export const GreenColor = "green";
+
+export const RedColor = "red";

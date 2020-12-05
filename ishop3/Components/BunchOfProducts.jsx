@@ -24,7 +24,6 @@ class BunchOfProducts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            productToDelete: [],
             selectedProduct: null,
             products: this.props.products,
             shouldAddNewRow: false,
@@ -146,14 +145,15 @@ class BunchOfProducts extends React.Component {
 
                 { this.state.shouldEditRow && this.state.selectedProduct && 
                 <AddOrEditProduct cbCancelEditionNewProduct={this.cbCancelEditionProduct} 
-                cbConfirmationEditionProduct={this.cbConfirmationEditionProduct} cbIsChangedProduct={this.cbChangedProduct} 
-                mode={EditMode} product={selectedProductInfo} />}
+                cbConfirmationEditionProduct={this.cbConfirmationEditionProduct} 
+                cbIsChangedProduct={this.cbChangedProduct} mode={EditMode} product={selectedProductInfo} />}
             
                 </div>
             </div>
 
             <div>
-                <input type="button" className="BigMargin Buttons" value={BeginAdditionNewProductButtonName} onClick={this.addNewRow} disabled={this.state.shouldAddNewRow || this.state.shouldEditRow}/>
+                <input type="button" className="BigMargin Buttons" value={BeginAdditionNewProductButtonName} 
+                onClick={this.addNewRow} disabled={this.state.shouldAddNewRow || this.state.shouldEditRow}/>
             </div>           
         </div>
     }
