@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './BunchOfProducts.css';
 
+import {AddMode, EditMode, EmptyString, HeadingForAddNewProduct, HeadingForEditNewProduct, InvalidCountEmptyMessage, 
+    InvalidCountNotNumberMessage, InvalidImageEmptyMessage, InvalidNameEmptyMessage, InvalidPriceEmptyMessage, 
+    InvalidPriceNotNumberMessage, RegularExpressionPatternForCheckingOnNumeric, ConfirmSavingEditionProductButtonName, 
+    ConfirmAdditionNewProductButtonName, CancelButtonName} from './Constants.jsx';
+
 class AddOrEditProduct extends React.Component {
     static propTypes = {
         product: PropTypes.shape({
@@ -16,57 +21,30 @@ class AddOrEditProduct extends React.Component {
         mode: PropTypes.string.isRequired,
         cbCancelEditionNewProduct: PropTypes.func,
         cbConfirmationEditionProduct: PropTypes.func,
-        cbIsChangedProduct: PropTypes.func.isRequired,
+        cbIsChangedProduct: PropTypes.func,
     }
-
-    // constructor(props) {
-    //     super(props);
-    //     this.state = { name: this.props.name}
-    // }
 
     state = {
-        invalidNameMessage: "",
-        invalidPriceMessage: "",
-        invalidCountMessage: "",
-        invalidImageMessage: "",
-        invalidBarcodeMessage: "",
-        name: (this.props.mode == "Edition")?this.props.product.name : "",
-        price: (this.props.mode == "Edition")?this.props.product.price : "",
-        count: (this.props.mode == "Edition")?this.props.product.count : "",
-        image: (this.props.mode == "Edition")?this.props.product.image : "",
-        barcode: (this.props.mode == "Edition")?this.props.product.barcode: "",
-        isValidName: (this.props.mode == "Edition")?true: false,
-        isValidPrice: (this.props.mode == "Edition")?true: false,
-        isValidCount: (this.props.mode == "Edition")?true: false,
-        isValidImage: (this.props.mode == "Edition")?true: false,
-        //isValidBarcode: (this.props.mode == "Edition")?true: false,
+        invalidNameMessage: EmptyString,
+        invalidPriceMessage: EmptyString,
+        invalidCountMessage: EmptyString,
+        invalidImageMessage: EmptyString,
+        invalidBarcodeMessage: EmptyString,
+        name: (this.props.mode == EditMode)?this.props.product.name : EmptyString,
+        price: (this.props.mode == EditMode)?this.props.product.price : EmptyString,
+        count: (this.props.mode == EditMode)?this.props.product.count : EmptyString,
+        image: (this.props.mode == EditMode)?this.props.product.image : EmptyString,
+        barcode: (this.props.mode == EditMode)?this.props.product.barcode: EmptyString,
+        isValidName: (this.props.mode == EditMode)?true: false,
+        isValidPrice: (this.props.mode == EditMode)?true: false,
+        isValidCount: (this.props.mode == EditMode)?true: false,
+        isValidImage: (this.props.mode == EditMode)?true: false,
     }
-
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.product.name !== this.state.name) {
-          this.setState({ name: nextProps.product.name });
-        }
-
-        if (nextProps.product.price !== this.state.price) {
-            this.setState({ price: nextProps.product.price });
-        }
-
-        if (nextProps.product.count !== this.state.count) {
-            this.setState({ count: nextProps.product.count });
-        }
-
-        if (nextProps.product.image !== this.state.image) {
-            this.setState({ image: nextProps.product.image });
-        }
-
-        if (nextProps.product.barcode !== this.state.barcode) {
-            this.setState({ barcode: nextProps.product.barcode });
-        }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
+        if (nextProps.product.barcode !== this.state.barcode)
+            this.setState({ name: nextProps.product.name, price: nextProps.product.price,
+            count: nextProps.product.count, image: nextProps.product.image, barcode: nextProps.product.barcode});
     }
 
     onChangeProduct = () => {
@@ -74,91 +52,16 @@ class AddOrEditProduct extends React.Component {
     }
 
     checkingForEmptyString = (str) => {
-        if(str == "")
+        if(str == EmptyString)
             return true;
         return false;
     }
 
     checkingForNumeric = (number) => {
-        if(!isNaN(parseFloat(number)) && isFinite(number))
+        if(number.match(RegularExpressionPatternForCheckingOnNumeric))
+        
             return true;
         return false;
-    }
-
-    addedName = (EO) => {       
-        if(this.checkingForEmptyString(EO.target.value))
-        {
-            (this.props.mode == "Edition")? this.onChangeProduct() : null;
-            this.setState({isValidName: false});
-            this.setState({invalidNameMessage: "Поле Имя не должно быть пустым!"});
-        }
-        else
-        {
-            (this.props.mode == "Edition")? this.onChangeProduct() : null;
-            this.setState({name: EO.target.value});
-            this.setState({isValidName: true});
-            this.setState({invalidNameMessage: ""});
-        }
-    }
-
-    addedPrice = (EO) => {
-        if(this.checkingForEmptyString(EO.target.value))
-        {
-            (this.props.mode == "Edition")? this.onChangeProduct() : null;
-            this.setState({isValidPrice: false});
-            this.setState({invalidPriceMessage: "Поле Цена не должно быть пустым!"});
-        }
-        else if(!this.checkingForNumeric(EO.target.value))
-        {
-            (this.props.mode == "Edition")? this.onChangeProduct() : null;
-            this.setState({isValidPrice: false});
-            this.setState({invalidPriceMessage: "Поле Цена должно быть десятичным числом!"});
-        }
-        else
-        {
-            (this.props.mode == "Edition")? this.onChangeProduct() : null;
-            this.setState({price: EO.target.value});
-            this.setState({isValidPrice: true});
-            this.setState({invalidPriceMessage: ""});
-        }
-    }
-
-    addedCount = (EO) => {
-        if(this.checkingForEmptyString(EO.target.value))
-        {
-            (this.props.mode == "Edition")? this.onChangeProduct() : null;
-            this.setState({isValidCount: false});
-            this.setState({invalidCountMessage: "Поле Остаток не должно быть пустым!"});
-        }
-        else if(!this.checkingForNumeric(EO.target.value))
-        {
-            (this.props.mode == "Edition")? this.onChangeProduct() : null;
-            this.setState({isValidCount: false});
-            this.setState({invalidCountMessage: "Поле Остаток должно быть десятичным числом!"});
-        }
-        else
-        {
-            (this.props.mode == "Edition")? this.onChangeProduct() : null;
-            this.setState({count: EO.target.value});
-            this.setState({isValidCount: true});
-            this.setState({invalidCountMessage: ""});
-        }
-    }
-
-    addedImage = (EO) => {
-        if(this.checkingForEmptyString(EO.target.value))
-        {
-            (this.props.mode == "Edition")? this.onChangeProduct() : null;
-            this.setState({isValidImage: false});
-            this.setState({invalidImageMessage: "Поле Фото не должно быть пустым!"});
-        }
-        else
-        {
-            (this.props.mode == "Edition")? this.onChangeProduct() : null;
-            this.setState({image: EO.target.value});
-            this.setState({isValidImage: true});
-            this.setState({invalidImageMessage: ""});
-        }
     }
 
     canceled = () => {
@@ -185,41 +88,108 @@ class AddOrEditProduct extends React.Component {
         }
     }
 
+    changedValueOnInput = (EO) => {
+        (this.props.mode == EditMode)? this.props.cbIsChangedProduct() : null;
+        this.checkValid(EO);
+    }
+
+    checkValid = (EO) => {
+        if(this.checkingForEmptyString(EO.target.value))
+        {
+            this.failedValidWithEmptyString(EO);
+            return;
+        }
+        
+        if((EO.target.name == 'price_input' || EO.target.name == 'rest_input') && 
+        !this.checkingForNumeric(EO.target.value))
+        {
+            this.failedValidWithNotNumericString(EO);
+            return;
+        }
+
+        this.successfulValidation(EO);
+    }
+
+    failedValidWithEmptyString = (EO) => {
+        switch (EO.target.name) {
+            case 'name_input': 
+                this.setState({isValidName: false, invalidNameMessage: InvalidNameEmptyMessage, name: EO.target.value});
+                break;
+            case 'price_input':
+                this.setState({isValidPrice: false, invalidPriceMessage: InvalidPriceEmptyMessage, price: EO.target.value});
+                break;
+            case 'rest_input':
+                this.setState({isValidCount: false, invalidCountMessage: InvalidCountEmptyMessage, count: EO.target.value});
+                break;
+            case 'image_input':
+                this.setState({isValidImage: false, invalidImageMessage: InvalidImageEmptyMessage, image: EO.target.value});
+                break;
+        }
+    }
+
+    failedValidWithNotNumericString = (EO) => {
+        switch (EO.target.name) {
+            case 'price_input':
+                this.setState({isValidPrice: false, invalidPriceMessage: InvalidPriceNotNumberMessage, price: EO.target.value});
+                break;
+            case 'rest_input':
+                this.setState({isValidCount: false, invalidCountMessage: InvalidCountNotNumberMessage, count: EO.target.value});
+                break;
+        }
+    }
+
+    successfulValidation = (EO) => {
+        switch (EO.target.name) {
+            case 'name_input': 
+                this.setState({isValidName: true, invalidNameMessage: EmptyString, name: EO.target.value});
+                break;
+            case 'price_input':
+                this.setState({isValidPrice: true, invalidPriceMessage: EmptyString, price: EO.target.value});
+                break;
+            case 'rest_input':
+                this.setState({isValidCount: true, invalidCountMessage: EmptyString, count: EO.target.value});
+                break;
+            case 'image_input':
+                this.setState({isValidImage: true, invalidImageMessage: EmptyString, image: EO.target.value});
+                break;
+        }
+    }
+
     render()
     {
-        return <form className="BunchOfProducts">
+        return <form className="BunchOfProducts" style={{position: "fixed"}}>
             <fieldset>
-                <legend>{this.props.mode=="Addition" && "Добавление нового товара"}</legend>
-                <legend>{this.props.mode=="Edition" && "Изменение существующего товара"}</legend>
+                <legend>{this.props.mode==AddMode && HeadingForAddNewProduct}</legend>
+                <legend>{this.props.mode== EditMode && HeadingForEditNewProduct}</legend>
                 <p>
                     <label className="Label">Имя:</label>
-                    <input id="name_input" type="text" size="15" onChange={this.addedName} 
-                    defaultValue={this.state.name} />                                     
+                    <input name="name_input" type="text" size="15" onChange={this.changedValueOnInput} 
+                    value={this.state.name} style={{borderColor: this.state.isValidName ? "black" : "red"}}/>                                     
                 </p>
-                <span>{this.state.invalidNameMessage}</span>
+                <span className="FailedValidationMessage">{this.state.invalidNameMessage}</span>
                 <p>
                     <label className="Label">Цена:</label>
-                    <input id="price_input" type="text" size="15" onChange={this.addedPrice} 
-                    defaultValue={this.state.price}/>
+                    <input name="price_input" type="text" size="15" onChange={this.changedValueOnInput} 
+                    value={this.state.price} style={{borderColor: this.state.isValidPrice ? "black" : "red"}}/>
                 </p>
-                <span>{this.state.invalidPriceMessage}</span>
+                <span className="FailedValidationMessage">{this.state.invalidPriceMessage}</span>
                 <p>
                     <label className="Label">Остаток:</label>
-                    <input id="rest_input" type="text" size="15" onChange={this.addedCount} 
-                    defaultValue={this.state.count}/>
+                    <input name="rest_input" type="text" size="15" onChange={this.changedValueOnInput} 
+                    value={this.state.count} style={{borderColor: this.state.isValidCount ? "black" : "red"}}/>
                 </p>
-                <span>{this.state.invalidCountMessage}</span>
+                <span className="FailedValidationMessage">{this.state.invalidCountMessage}</span>
                 <p>
                     <label className="Label">Фото:</label>
-                    <input id="image_input" type="text" size="15" onChange={this.addedImage}  
-                    defaultValue={this.state.image}/>
+                    <input name="image_input" type="text" size="15" onChange={this.changedValueOnInput}  
+                    value={this.state.image} style={{borderColor: this.state.isValidImage ? "black" : "red"}}/>
                 </p>
-                <span>{this.state.invalidImageMessage}</span>
+                <span className="FailedValidationMessage">{this.state.invalidImageMessage}</span>
                 <br/>
-                <input type="button" value={this.props.mode=="Edition" ? "Сохранить" : "Добавить"} onClick={this.confirmation} 
+                <input type="button" value={this.props.mode==EditMode ? ConfirmSavingEditionProductButtonName : ConfirmAdditionNewProductButtonName} onClick={this.confirmation} 
             disabled={!(this.state.isValidName && this.state.isValidPrice && this.state.isValidCount 
             && this.state.isValidImage)}/>
-                <input type="button" value="Отмена" onClick={this.canceled}/>
+                <input type="button" value={CancelButtonName} onClick={this.canceled}/>
             </fieldset>
         </form>
     }

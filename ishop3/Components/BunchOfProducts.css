@@ -64,6 +64,8 @@
 .BunchOfProducts .FixedPosition 
 {
     position: fixed;
+    border: 1px solid black;
+    padding: 5px 5px 5px 5px;
 }
 
 .BunchOfProducts .Label
@@ -79,19 +81,8 @@
     /* padding: 12px; */
 }
 
-/* .BunchOfProducts .InputGroup
+.BunchOfProducts .FailedValidationMessage 
 {
-    float: left;
+    font-family: monospace;
+    color: red;
 }
-
-.BunchOfProducts .Field
-{
-    text-align: right;
-    line-height:25px;
-}
-
-.BunchOfProducts .Label
-{
-    float: left;
-    padding-right:10px;
-} */

@@ -7,6 +7,7 @@ import ProductCard from './ProductCard.jsx';
 import AddNewProduct from './AddNewProduct.jsx';
 import EditNewProduct from './EditProduct.jsx';
 import AddOrEditProduct from './AddOrEditProduct.jsx';
+import { AddMode, EditMode, BeginAdditionNewProductButtonName } from './Constants.jsx';
 
 class BunchOfProducts extends React.Component {
     static propTypes = {
@@ -134,7 +135,7 @@ class BunchOfProducts extends React.Component {
                     </thead>
                     <tbody className='Row'>{productsCode}</tbody> 
                 </table>
-                <div className="ProductCard"> {!this.state.shouldEditRow &&
+                <div className="ProductCard" style={{display: !this.state.shouldEditRow?"block" : "none"}}> {!this.state.shouldEditRow &&
                                     this.state.selectedProduct &&
                                     <ProductCard key={selectedProductInfo.barcode}
                                         name={selectedProductInfo.name}
@@ -146,23 +147,16 @@ class BunchOfProducts extends React.Component {
                 <div className="ProductCard"> { this.state.shouldAddNewRow && 
                 <AddOrEditProduct cbCancelAdditionNewProduct={this.cbCancelAdditionNewProduct} 
                 cbConfirmationAdditionNewProduct={this.cbConfirmationAdditionNewProduct} 
-                 mode="Additon" />}
+                 mode={AddMode} />}
 
                 { this.state.shouldEditRow && this.state.selectedProduct && 
                 <AddOrEditProduct cbCancelEditionNewProduct={this.cbCancelEditionProduct} 
                 cbConfirmationEditionProduct={this.cbConfirmationEditionProduct} cbIsChangedProduct={this.cbChangedProduct} 
-                mode="Edition" product={selectedProductInfo} />}
-                
-                {/* {this.state.shouldAddNewRow == true && 
-                   <AddNewProduct cbCancelAdditionNewProduct={this.cbCancelAdditionNewProduct} 
-                   cbConfirmationAdditionNewProduct={this.cbConfirmationAdditionNewProduct} /> }
-
-                   {this.state.shouldEditRow == true && <EditNewProduct product={selectedProductInfo} 
-                   cbCancelEditionProduct={this.cbCancelEditionProduct} 
-                   cbConfirmationEditionNewProduct = {this.cbConfirmationEditionNewProduct} />} */}
+                mode={EditMode} product={selectedProductInfo} />}
+            
                 </div>
             </div>
-            <input type="button" value="Добавить новый товар" onClick={this.addNewRow} disabled={this.state.shouldAddNewRow || this.state.shouldEditRow}/>
+            <input type="button" value={BeginAdditionNewProductButtonName} onClick={this.addNewRow} disabled={this.state.shouldAddNewRow || this.state.shouldEditRow}/>
         </div>
     }
 }
