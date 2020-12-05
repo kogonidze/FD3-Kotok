@@ -48,17 +48,17 @@
 
 .BunchOfProducts .ProductCard
 {
-    flex-grow: 1;
+    flex-grow: 5;
     margin: 0 5px;
-    /* margin-left: 2%;
-    margin-right: 2%; */
+    margin-left: 2%;
+    margin-right: 2%;
     max-width: 40%;
 }
 
 .BunchOfProducts .ImageProductCard
 {
-    width: 200px;
-    height: 200px; 
+    width: 250px;
+    height: 250px; 
 }
 
 .BunchOfProducts .FixedPosition 
@@ -66,14 +66,14 @@
     position: fixed;
     border: 1px solid black;
     padding: 5px 5px 5px 5px;
+    width: 25%;
+    margin-right: 2%;
 }
 
 .BunchOfProducts .Label
 {
     float:left;
-    width: 30%;
-    /* padding: 12px 12px 12px 0; */
-    /* display: inline-block; */
+    width: 40%;
 }
 
 .BunchOfProducts .Input
@@ -85,4 +85,47 @@
 {
     font-family: monospace;
     color: red;
+}
+
+.BunchOfProducts .Form
+{
+    min-width: 25%;
+    position: fixed;
+}
+
+.BunchOfProducts .Buttons
+{
+    padding: 5px 5px 5px 5px;
+    display: inline-block;
+}
+
+.BunchOfProducts .Wrapper
+{
+    float:left;
+    width:100%;
+    text-align: center;
+}
+
+.BunchOfProducts .BigMargin
+{
+    margin-left: 35px;
+    margin-top: 20px;
+}
+
+.BunchOfProducts .LittleMargin
+{
+    margin: 5px;
+}
+
+.BunchOfProducts .Headings
+{
+    border:1px solid green;
+    padding: 1em;
+    font:80%/1 sans-serif;
+    font-weight: 600;
+}
+
+.BunchOfProducts .Fieldset
+{
+    border: 1px solid green;
 }

@@ -157,39 +157,40 @@ class AddOrEditProduct extends React.Component {
 
     render()
     {
-        return <form className="BunchOfProducts" style={{position: "fixed"}}>
-            <fieldset>
-                <legend>{this.props.mode==AddMode && HeadingForAddNewProduct}</legend>
-                <legend>{this.props.mode== EditMode && HeadingForEditNewProduct}</legend>
+        return <form className="Form">
+            <fieldset className="Fieldset">
+                <legend className="Headings">{(this.props.mode==AddMode && HeadingForAddNewProduct) ||
+                 (this.props.mode== EditMode && HeadingForEditNewProduct)}</legend>
+                {/* <legend>{this.props.mode== EditMode && HeadingForEditNewProduct}</legend> */}
                 <p>
                     <label className="Label">Имя:</label>
-                    <input name="name_input" type="text" size="15" onChange={this.changedValueOnInput} 
-                    value={this.state.name} style={{borderColor: this.state.isValidName ? "black" : "red"}}/>                                     
+                    <input name="name_input" type="text" onChange={this.changedValueOnInput} 
+                    value={this.state.name} style={{borderColor: this.state.isValidName ? "green" : "red"}}/>                                     
                 </p>
                 <span className="FailedValidationMessage">{this.state.invalidNameMessage}</span>
                 <p>
                     <label className="Label">Цена:</label>
-                    <input name="price_input" type="text" size="15" onChange={this.changedValueOnInput} 
-                    value={this.state.price} style={{borderColor: this.state.isValidPrice ? "black" : "red"}}/>
+                    <input name="price_input" type="text" onChange={this.changedValueOnInput} 
+                    value={this.state.price} style={{borderColor: this.state.isValidPrice ? "green" : "red"}}/>
                 </p>
                 <span className="FailedValidationMessage">{this.state.invalidPriceMessage}</span>
                 <p>
                     <label className="Label">Остаток:</label>
-                    <input name="rest_input" type="text" size="15" onChange={this.changedValueOnInput} 
-                    value={this.state.count} style={{borderColor: this.state.isValidCount ? "black" : "red"}}/>
+                    <input name="rest_input" type="text" onChange={this.changedValueOnInput} 
+                    value={this.state.count} style={{borderColor: this.state.isValidCount ? "green" : "red"}}/>
                 </p>
                 <span className="FailedValidationMessage">{this.state.invalidCountMessage}</span>
                 <p>
                     <label className="Label">Фото:</label>
-                    <input name="image_input" type="text" size="15" onChange={this.changedValueOnInput}  
-                    value={this.state.image} style={{borderColor: this.state.isValidImage ? "black" : "red"}}/>
+                    <input name="image_input" type="text" onChange={this.changedValueOnInput}  
+                    value={this.state.image} style={{borderColor: this.state.isValidImage ? "green" : "red"}}/>
                 </p>
                 <span className="FailedValidationMessage">{this.state.invalidImageMessage}</span>
                 <br/>
-                <input type="button" value={this.props.mode==EditMode ? ConfirmSavingEditionProductButtonName : ConfirmAdditionNewProductButtonName} onClick={this.confirmation} 
+                <input type="button" className="Buttons" style={{float: "left"}} value={this.props.mode==EditMode ? ConfirmSavingEditionProductButtonName : ConfirmAdditionNewProductButtonName} onClick={this.confirmation} 
             disabled={!(this.state.isValidName && this.state.isValidPrice && this.state.isValidCount 
             && this.state.isValidImage)}/>
-                <input type="button" value={CancelButtonName} onClick={this.canceled}/>
+                <input type="button" className="Buttons" style={{float: "right"}} value={CancelButtonName} onClick={this.canceled}/>
             </fieldset>
         </form>
     }

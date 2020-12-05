@@ -12,7 +12,9 @@ class ProductCard extends React.Component {
     render() {
         return <div className="FixedPosition">
             <h2>{this.props.name}</h2>
-            <img className="ImageProductCard" src={this.props.image} alt='Product Sample' />
+            <div className="ToCenter">
+            <img className="ImageProductCard ToCenter" src={this.props.image} alt='Product Sample' />
+            </div>
             <p className="Text">Цена: <b>{this.props.price}</b> BYN</p> 
             <p className="Text">Осталось на складе: <b>{this.props.count}</b> штук</p>
          </div>

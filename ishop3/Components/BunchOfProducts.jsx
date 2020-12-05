@@ -4,8 +4,6 @@ import './BunchOfProducts.css';
 import Shop from './Shop.jsx';
 import Product from './Product.jsx';
 import ProductCard from './ProductCard.jsx';
-import AddNewProduct from './AddNewProduct.jsx';
-import EditNewProduct from './EditProduct.jsx';
 import AddOrEditProduct from './AddOrEditProduct.jsx';
 import { AddMode, EditMode, BeginAdditionNewProductButtonName } from './Constants.jsx';
 
@@ -36,10 +34,6 @@ class BunchOfProducts extends React.Component {
         };
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     return this.state.isOnChangedProduct != nextState.isOnChangedProduct;
-    // }
-        
     cbChangedProduct = () => {
         this.setState({isOnChangedProduct: true});
     }
@@ -135,19 +129,20 @@ class BunchOfProducts extends React.Component {
                     </thead>
                     <tbody className='Row'>{productsCode}</tbody> 
                 </table>
-                <div className="ProductCard" style={{display: !this.state.shouldEditRow?"block" : "none"}}> {!this.state.shouldEditRow &&
-                                    this.state.selectedProduct &&
-                                    <ProductCard key={selectedProductInfo.barcode}
-                                        name={selectedProductInfo.name}
-                                        price={selectedProductInfo.price}
-                                        count={selectedProductInfo.count}
-                                        image={selectedProductInfo.image} 
-                                        />} 
-                </div>
-                <div className="ProductCard"> { this.state.shouldAddNewRow && 
-                <AddOrEditProduct cbCancelAdditionNewProduct={this.cbCancelAdditionNewProduct} 
-                cbConfirmationAdditionNewProduct={this.cbConfirmationAdditionNewProduct} 
-                 mode={AddMode} />}
+
+                <div className="ProductCard">
+                {!this.state.shouldEditRow && this.state.selectedProduct &&
+                    <ProductCard key={selectedProductInfo.barcode}
+                                name={selectedProductInfo.name}
+                                price={selectedProductInfo.price}
+                                count={selectedProductInfo.count}
+                                image={selectedProductInfo.image} 
+                                />} 
+
+                 { this.state.shouldAddNewRow && 
+                    <AddOrEditProduct cbCancelAdditionNewProduct={this.cbCancelAdditionNewProduct} 
+                    cbConfirmationAdditionNewProduct={this.cbConfirmationAdditionNewProduct} 
+                    mode={AddMode} />}
 
                 { this.state.shouldEditRow && this.state.selectedProduct && 
                 <AddOrEditProduct cbCancelEditionNewProduct={this.cbCancelEditionProduct} 
@@ -156,7 +151,10 @@ class BunchOfProducts extends React.Component {
             
                 </div>
             </div>
-            <input type="button" value={BeginAdditionNewProductButtonName} onClick={this.addNewRow} disabled={this.state.shouldAddNewRow || this.state.shouldEditRow}/>
+
+            <div>
+                <input type="button" className="BigMargin Buttons" value={BeginAdditionNewProductButtonName} onClick={this.addNewRow} disabled={this.state.shouldAddNewRow || this.state.shouldEditRow}/>
+            </div>           
         </div>
     }
 }

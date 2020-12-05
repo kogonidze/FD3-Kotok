@@ -49,8 +49,10 @@ class Product extends React.Component {
                 <img src={this.props.image} alt='Product Sample' className='Image' /> 
             </td>
             <td className='Cell ToCenter'> 
-                <input type='button' value="Удалить" onClick={this.deleteRow} disabled={this.props.shouldAddNewRow || this.props.shouldEditRow} />
-                <input type='button' value="Редактировать" onClick={this.editRow} disabled={this.props.shouldAddNewRow}/>
+                <div className="Wrapper">
+                    <input type='button' className="Buttons LittleMargin" value="Удалить" onClick={this.deleteRow} disabled={this.props.shouldAddNewRow || this.props.shouldEditRow} />
+                    <input type='button' className="Buttons LittleMargin" value="Редактировать" onClick={this.editRow} disabled={this.props.shouldAddNewRow}/>
+                </div>
             </td>
         </tr>
         
