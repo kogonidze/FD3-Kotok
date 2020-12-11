@@ -76,7 +76,7 @@ class BunchOfProducts extends React.Component {
         this.setState({products: this.state.products.filter(elem => {
             if(elem.barcode != code)
                 return elem;
-        })})
+        }), selectedProduct: null})
     }
 
     addNewRow = () => {
