@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class DoubleButton extends React.Component {
-    propTypes = {
+    static propTypes = {
         caption1: PropTypes.string.isRequired,
         caption2: PropTypes.string.isRequired,
         cbPressed: PropTypes.func.isRequired,
