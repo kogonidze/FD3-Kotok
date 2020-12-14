@@ -23,6 +23,7 @@ class MobileCompany extends React.PureComponent {
   state = {
     name: this.props.name,
     clients: this.props.clients,
+    viewMode: 0,            // 0 - просмотр всех, 1 - просмотр активных, 2 - просмотр заблокированных 
   };
 
   setName1 = () => {
@@ -33,28 +34,32 @@ class MobileCompany extends React.PureComponent {
     this.setState({name:'Velcom'});
   };
   
-  setBalance = (clientId,newBalance) => {
-    let changed=false;
-    let newClients=[...this.state.clients]; // копия самого массива клиентов
-    newClients.forEach( (c,i) => {
-      if ( c.id==clientId && c.balance!=newBalance ) {
-        let newClient={...c}; // копия хэша изменившегося клиента
-        newClient.balance=newBalance;
-        newClients[i]=newClient;
-        changed=true;
-      }
-    } );
-    if ( changed )
-      this.setState({clients:newClients});
-  };
-  
-  setBalance1 = () => {
-    this.setBalance(105,230);
-  };
+  setViewMode0 = () => {
+    this.setState({viewMode: 0});
+  }
 
-  setBalance2 = () => {
-    this.setBalance(105,250);
-  };
+  setViewMode1 = () => {
+    this.setState({viewMode: 1});
+  }
+
+  setViewMode2 = () => {
+    this.setState({viewMode: 2});
+  }
+
+  // setBalance = (clientId,newBalance) => {
+  //   let changed=false;
+  //   let newClients=[...this.state.clients]; // копия самого массива клиентов
+  //   newClients.forEach( (c,i) => {
+  //     if ( c.id==clientId && c.balance!=newBalance ) {
+  //       let newClient={...c}; // копия хэша изменившегося клиента
+  //       newClient.balance=newBalance;
+  //       newClients[i]=newClient;
+  //       changed=true;
+  //     }
+  //   } );
+  //   if ( changed )
+  //     this.setState({clients:newClients});
+  // };
   
   render() {
 
@@ -71,11 +76,14 @@ class MobileCompany extends React.PureComponent {
         <input type="button" value="=МТС" onClick={this.setName1} />
         <input type="button" value="=Velcom" onClick={this.setName2} />
         <div className='MobileCompanyName'>Компания &laquo;{this.state.name}&raquo;</div>
+        <div>
+          <input type="button" value="Все" onClick={this.setViewMode0} />
+          <input type="button" value="Активные" onClick={this.setViewMode1} />
+          <input type="button" value="Заблокированные" onClick={this.setViewMode2} />
+        </div>
         <div className='MobileCompanyClients'>
           {clientsCode}
         </div>
-        <input type="button" value="Сидоров=230" onClick={this.setBalance1} />
-        <input type="button" value="Сидоров=250" onClick={this.setBalance2} />
       </div>
     )
     ;

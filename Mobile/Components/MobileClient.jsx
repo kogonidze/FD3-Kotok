@@ -18,11 +18,14 @@ class MobileClient extends React.PureComponent {
   state = {
     FIO: this.props.FIO,
     balance: this.props.balance,
+    status: this.props.balance >= 0 ? 1 : 0,              // 1 - активен, 0 - заблокирован
   };
 
   componentWillReceiveProps = (newProps) => {
     //console.log("MobileClient id="+this.props.id+" componentWillReceiveProps");
-    this.setState({FIO:newProps.FIO,balance:newProps.balance});
+    this.setState({FIO:newProps.FIO,balance:newProps.balance, status: newProps.balance >= 0 ? 1 : 0});
+
+    
   };
 
   render() {
@@ -33,6 +36,8 @@ class MobileClient extends React.PureComponent {
       <div className='MobileClient'>
         <span className='MobileClientBalance'>{this.state.balance}</span>
         <span className='MobileClientFIO'>{this.state.FIO.fam+" "+this.state.FIO.im+" "+this.state.FIO.otch}</span>
+        {this.state.status == 1 && <span>active</span>}
+        {this.state.status == 0 && <span>blocked</span>}
       </div>
     );
 
