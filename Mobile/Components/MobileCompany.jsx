@@ -1,9 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 
 import MobileClient from './MobileClient.jsx';
+import ClientCard from './ClientCard.jsx';
 
 import './MobileCompany.css';
+import { clientsEvents } from './events';
 
 class MobileCompany extends React.PureComponent {
 
@@ -24,7 +26,37 @@ class MobileCompany extends React.PureComponent {
     name: this.props.name,
     clients: this.props.clients,
     viewMode: 0,            // 0 - просмотр всех, 1 - просмотр активных, 2 - просмотр заблокированных 
+    idClientForEdition: 0,            // 0 - режим редактирования отключен, иначе id выбранного для редактирования клиента
   };
+
+  componentDidMount = () => {
+    clientsEvents.addListener("EditModeBtnClicked", this.editModeBtnClicked);
+    clientsEvents.addListener("CancelEditionBtnClicked", this.cancelEditionBtnClicked);
+    clientsEvents.addListener("SaveEditionChangesBtnClicked", this.saveEditionChangesBtnClicked);
+  }
+
+  componentWillUnmount = () => {
+    clientsEvents.removeAllListeners();
+  }
+
+  editModeBtnClicked = (id) => {
+    this.setState({idClientForEdition: id});
+  }
+
+  cancelEditionBtnClicked = () => {
+    this.setState({idClientForEdition: 0});
+  }
+
+  saveEditionChangesBtnClicked = (fam, im, otch, balance, id) => {
+    var tempArr = this.state.clients.slice();
+    var newItem = {fam: fam, im: im, otch: otch, balance: balance, id: id}
+
+    var selectedClientIndex = this.state.clients.findIndex(client => { client.id == id});
+
+    tempArr[selectedClientIndex] = newItem;
+
+    this.setState({clients: tempArr, idClientForEdition: 0});
+  }
 
   setName1 = () => {
     this.setState({name:'МТС'});
@@ -66,10 +98,25 @@ class MobileCompany extends React.PureComponent {
     console.log("MobileCompany render");
 
     var clientsCode=this.state.clients.map( client => {
-        let FIO={fam:client.fam,im:client.im,otch:client.otch};
+      let FIO={fam:client.fam,im:client.im,otch:client.otch};
+
+      if(this.state.viewMode == 0)
         return <MobileClient key={client.id} id={client.id} FIO={FIO} balance={client.balance} />;
-      }
-    );
+      else if(this.state.viewMode == 1 && client.balance >= 0)
+        return <MobileClient key={client.id} id={client.id} FIO={FIO} balance={client.balance} />;
+      else if(this.state.viewMode == 2 && client.balance < 0)
+        return <MobileClient key={client.id} id={client.id} FIO={FIO} balance={client.balance} />;
+    });
+
+    var selectedClient;
+    if(this.state.idClientForEdition > 0)
+    {
+      selectedClient = this.state.clients.find(client => {
+        if(client.id == this.state.idClientForEdition)
+          return client;
+      })
+    }
+    
 
     return (
       <div className='MobileCompany'>
@@ -84,9 +131,15 @@ class MobileCompany extends React.PureComponent {
         <div className='MobileCompanyClients'>
           {clientsCode}
         </div>
+
+        {
+          (this.state.idClientForEdition != 0) && <ClientCard id={selectedClient.id} fam={selectedClient.fam} im={selectedClient.im} 
+          otch={selectedClient.otch} balance={selectedClient.balance} />
+        }
+        
       </div>
     )
-    ;
+    
 
   }
 

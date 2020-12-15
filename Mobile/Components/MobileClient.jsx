@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './MobileClient.css';
+import {clientsEvents} from './events';
 
 class MobileClient extends React.PureComponent {
 
@@ -28,16 +29,21 @@ class MobileClient extends React.PureComponent {
     
   };
 
+  editButtonSelected = (EO) => {
+    clientsEvents.emit('EditModeBtnClicked', this.props.id);
+  }
+
   render() {
 
     console.log("MobileClient id="+this.props.id+" render");
     
     return (
       <div className='MobileClient'>
-        <span className='MobileClientBalance'>{this.state.balance}</span>
         <span className='MobileClientFIO'>{this.state.FIO.fam+" "+this.state.FIO.im+" "+this.state.FIO.otch}</span>
+        <span className='MobileClientBalance'>{this.state.balance}</span>
         {this.state.status == 1 && <span>active</span>}
         {this.state.status == 0 && <span>blocked</span>}
+        <input type="button" defaultValue="Редактировать" onClick={this.editButtonSelected}/>
       </div>
     );
 
