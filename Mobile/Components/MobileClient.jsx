@@ -7,75 +7,61 @@ import {clientsEvents} from './events';
 class MobileClient extends React.PureComponent {
 
   static propTypes = {
-    id: PropTypes.number.isRequired,
-    FIO:PropTypes.shape({
+    info:PropTypes.shape({
+      id: PropTypes.number.isRequired,
       fam: PropTypes.string.isRequired,
       im: PropTypes.string.isRequired,
       otch: PropTypes.string.isRequired,
+      balance: PropTypes.number.isRequired,
     }),
-    balance: PropTypes.number.isRequired,
   };
 
   state = {
-    FIO: this.props.FIO,
-    balance: this.props.balance,
-    status: this.props.balance >= 0 ? 1 : 0,              // 1 - активен, 0 - заблокирован
+    info: this.props.info,
+    status: this.props.info.balance >= 0 ? 1 : 0,              // 1 - активен, 0 - заблокирован
   };
 
   componentWillReceiveProps = (newProps) => {
-    //console.log("MobileClient id="+this.props.id+" componentWillReceiveProps");
-    this.setState({FIO:newProps.FIO,balance:newProps.balance, status: newProps.balance >= 0 ? 1 : 0});
+    this.setState({info:newProps.info});
   };
 
   editModeBtnClicked = () => {
-    clientsEvents.emit('EditModeBtnClicked', this.props.id);
+    clientsEvents.emit('EditModeBtnClicked', this.props.info.id);
   }
 
   deleteClientBtnClicked = () => {
-    clientsEvents.emit('DeleteClientBtnClicked', this.props.id);
+    clientsEvents.emit('DeleteClientBtnClicked', this.props.info.id);
   }
 
   render() {
 
-    console.log("MobileClient id="+this.props.id+" render");
+    console.log("MobileClient id="+this.props.info.id+" render");
     
     return (
         <tr className="ClientInfo">
           <td>
-            {this.state.FIO.fam}
+            {this.state.info.fam}
           </td>
           <td>
-            {this.state.FIO.im}
+            {this.state.info.im}
           </td>
           <td>
-            {this.state.FIO.otch}
+            {this.state.info.otch}
           </td>
           <td>
-            {this.state.balance}
+            {this.state.info.balance}
           </td>
           {this.state.status == 1 && <td className="StatusActive">active</td>}
           {this.state.status == 0 && <td className="StatusBlocked">blocked</td>}
-          {/* <td>
-            {this.state.status == 1 && <span className="statusActive">active</span>}
-            {this.state.status == 0 && <span className="statusBlocked">blocked</span>}
-          </td> */}
           <td>
             <input type="button" defaultValue="Редактировать" onClick={this.editModeBtnClicked}/>
           </td>
           <td>
             <input type="button" defaultValue="Удалить" onClick={this.deleteClientBtnClicked} />
           </td>
-          {/* <span className='MobileClientFIO'>{this.state.FIO.fam+" "+this.state.FIO.im+" "+this.state.FIO.otch}</span>
-          <span className='MobileClientBalance'>{this.state.balance}</span>
-          {this.state.status == 1 && <span>active</span>}
-          {this.state.status == 0 && <span>blocked</span>}
-          <input type="button" defaultValue="Редактировать" onClick={this.editModeBtnClicked}/>
-          <input type="button" defaultValue="Удалить" onClick={this.deleteClientBtnClicked} /> */}
         </tr>
     );
-
   }
-
 }
 
 export default MobileClient;

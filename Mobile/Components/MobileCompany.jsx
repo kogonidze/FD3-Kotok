@@ -104,35 +104,19 @@ class MobileCompany extends React.PureComponent {
   setAdditionMode = () => {
     this.setState({additionMode: 1});
   }
-
-  // setBalance = (clientId,newBalance) => {
-  //   let changed=false;
-  //   let newClients=[...this.state.clients]; // копия самого массива клиентов
-  //   newClients.forEach( (c,i) => {
-  //     if ( c.id==clientId && c.balance!=newBalance ) {
-  //       let newClient={...c}; // копия хэша изменившегося клиента
-  //       newClient.balance=newBalance;
-  //       newClients[i]=newClient;
-  //       changed=true;
-  //     }
-  //   } );
-  //   if ( changed )
-  //     this.setState({clients:newClients});
-  // };
   
   render() {
 
-    console.log("MobileCompany render");
+    console.log("MobileCompany render");   
 
+    
     var clientsCode=this.state.clients.map( client => {
-      let FIO={fam:client.fam,im:client.im,otch:client.otch};
-
       if(this.state.viewMode == 0)
-        return <MobileClient key={client.id} id={client.id} FIO={FIO} balance={client.balance} />;
+        return <MobileClient key={client.id} info={client} />;
       else if(this.state.viewMode == 1 && client.balance >= 0)
-        return <MobileClient key={client.id} id={client.id} FIO={FIO} balance={client.balance} />;
+        return <MobileClient key={client.id} info={client} />;
       else if(this.state.viewMode == 2 && client.balance < 0)
-        return <MobileClient key={client.id} id={client.id} FIO={FIO} balance={client.balance} />;
+        return <MobileClient key={client.id} info={client} />;
     });
 
     var selectedClient;
@@ -144,7 +128,6 @@ class MobileCompany extends React.PureComponent {
       })
     }
     
-
     return (
       <div className="MobileCompany">
         <input className="Button" type="button" value="=МТС" onClick={this.setName1} />
