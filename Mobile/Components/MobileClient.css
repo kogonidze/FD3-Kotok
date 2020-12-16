@@ -5,13 +5,29 @@ div.MobileClient
 
 span.MobileClientBalance
 {
-  /* float: right;
-  width: 30px; */
   font-weight: bold;
   text-align: right;
 }
 
-span.MobileClientFIO
+tr.ClientInfo 
 {
-  /* margin-right: 30px; */
+  text-align: center;
+  font-size: medium;
+  border: 3px double black;
+}
+
+tr.ClientInfo td
+{
+  border: 3px double black;
+  padding: 5px;
+}
+
+.StatusActive 
+{
+  background-color: green;
+}
+
+.StatusBlocked
+{
+  background-color: red;
 }

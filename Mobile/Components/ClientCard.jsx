@@ -17,6 +17,7 @@ class ClientCard extends React.PureComponent {
         im: this.props.additionMode ? "" : this.props.im,
         otch: this.props.additionMode ? "" : this.props.otch,
         balance: this.props.additionMode ? "" : this.props.balance,
+        validationMsg: "",
     }
 
     cancelEditionOrAdditionBtnClicked = () => {
@@ -24,8 +25,26 @@ class ClientCard extends React.PureComponent {
     }
 
     saveChangesBtnClicked = () => {
-        clientsEvents.emit('SaveEditionOrAdditionChangesBtnClicked', this.refs.famField.value, this.refs.imField.value, 
-        this.refs.otchField.value, this.refs.balanceField.value, this.props.id);
+        if(this.refs.balanceField.value.match(/^(-?)[1-9]\d*(\.\d+)?$/g))
+        {
+            if(this.state.validationMsg != "")
+            {
+                this.setState({validationMsg: ""});
+            }
+            clientsEvents.emit('SaveEditionOrAdditionChangesBtnClicked', this.refs.famField.value, this.refs.imField.value, 
+            this.refs.otchField.value, this.refs.balanceField.value, this.props.id);
+        }
+        else
+        {
+            this.setState({validationMsg: "Баланс должен быть десятичным числом!"});
+        }
+
+        if(this.refs.famField.value == "" || this.refs.imField.value == "" || this.refs.otchField.value == "" 
+        || this.refs.balanceField.value == "")
+        {
+            this.setState({validationMsg: "Пустая строка недопустима!"})
+        }
+            
     }
 
     render() {
@@ -52,6 +71,8 @@ class ClientCard extends React.PureComponent {
 
             <input type="button" defaultValue="Сохранить" onClick={this.saveChangesBtnClicked} />
             <input type="button" defaultValue="Завершить" onClick={this.cancelEditionOrAdditionBtnClicked} />
+
+            <p>{this.state.validationMsg}</p>
 
         </div>)
     }

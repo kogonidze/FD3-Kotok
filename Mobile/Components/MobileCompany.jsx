@@ -146,35 +146,44 @@ class MobileCompany extends React.PureComponent {
     
 
     return (
-      <div className='MobileCompany'>
-        <input type="button" value="=МТС" onClick={this.setName1} />
-        <input type="button" value="=Velcom" onClick={this.setName2} />
-        <div className='MobileCompanyName'>Компания &laquo;{this.state.name}&raquo;</div>
+      <div className="MobileCompany">
+        <input className="Button" type="button" value="=МТС" onClick={this.setName1} />
+        <input className="Button" type="button" value="=Velcom" onClick={this.setName2} />
+        <div className="MobileCompanyName">Компания &laquo;{this.state.name}&raquo;</div>
         <div>
-          <input type="button" value="Все" onClick={this.setViewMode0} />
-          <input type="button" value="Активные" onClick={this.setViewMode1} />
-          <input type="button" value="Заблокированные" onClick={this.setViewMode2} />
+          <input className="Button" type="button" value="Все" onClick={this.setViewMode0} />
+          <input className="Button" type="button" value="Активные" onClick={this.setViewMode1} />
+          <input className="Button" type="button" value="Заблокированные" onClick={this.setViewMode2} />
         </div>
-        <div className='MobileCompanyClients'>
-          {clientsCode}
-        </div>
+        <table className="Table">
+          <thead>
+            <tr className="HeadingRow">
+              <th>Фамилия</th>
+              <th>Имя</th>
+              <th>Отчество</th>
+              <th>Баланс</th>
+              <th>Статус</th>
+              <th>Редактировать</th>
+              <th>Удалить</th>
+            </tr>
+          </thead>
+          <tbody className="Row">
+            {clientsCode}
+          </tbody>
+        </table>
         <div>
-          <input type="button" value="Добавить клиента" onClick={this.setAdditionMode} />
+          <input className="Button" type="button" value="Добавить клиента" onClick={this.setAdditionMode} />
         </div>
         {
           (this.state.idClientForEdition != 0) && <ClientCard id={selectedClient.id} fam={selectedClient.fam} im={selectedClient.im} 
           otch={selectedClient.otch} balance={selectedClient.balance} />
         }
         {
-          (this.state.additionMode != 0) && <ClientCard additionMode={true} id={MobileCompany.global_id++}/>
+          (this.state.additionMode != 0) && <ClientCard additionMode={true} id={++MobileCompany.global_id}/>
         }
-
       </div>
     )
-    
-
   }
-
 }
 
 export default MobileCompany;
