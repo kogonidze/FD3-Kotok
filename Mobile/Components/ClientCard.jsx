@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {clientsEvents} from './events';
+import './ClientCard.css';
 
 class ClientCard extends React.PureComponent {
     static propTypes = {
@@ -54,23 +55,26 @@ class ClientCard extends React.PureComponent {
                 <h2>Редактирование существующего клиента </h2>
             }
 
-            <span>Фамилия: </span>
+            <span className="CardLabel">Фамилия: </span>
             <input type="text" defaultValue={this.state.fam} ref="famField" />
             <br />
 
-            <span>Имя: </span>
+            <span className="CardLabel">Имя: </span>
             <input type="text" defaultValue={this.state.im} ref="imField" />
             <br />
 
-            <span>Отчество: </span>
+            <span className="CardLabel">Отчество: </span>
             <input type="text" defaultValue={this.state.otch} ref="otchField" />
             <br />
 
-            <span>Баланс: </span>
+            <span className="CardLabel">Баланс: </span>
             <input type="text" defaultValue={this.state.balance} ref="balanceField" />
 
-            <input type="button" defaultValue="Сохранить" onClick={this.saveChangesBtnClicked} />
-            <input type="button" defaultValue="Завершить" onClick={this.cancelEditionOrAdditionBtnClicked} />
+            <div>
+                <input className="Button" type="button" defaultValue="Сохранить" onClick={this.saveChangesBtnClicked} />
+                <input className="Button" type="button" defaultValue="Завершить" onClick={this.cancelEditionOrAdditionBtnClicked} />
+            </div>
+            
 
             <p>{this.state.validationMsg}</p>
 

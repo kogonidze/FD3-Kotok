@@ -1,0 +1,11 @@
+.CardLabel
+{
+    float: left;
+    width: 5%;
+}
+
+.Button
+{
+  margin-right: 5px;
+  margin-top: 5px;
+}
