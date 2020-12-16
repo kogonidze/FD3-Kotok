@@ -9,6 +9,8 @@ import { clientsEvents } from './events';
 
 class MobileCompany extends React.PureComponent {
 
+  static global_id = 120; 
+
   static propTypes = {
     name: PropTypes.string.isRequired,
     clients:PropTypes.arrayOf(
@@ -27,12 +29,13 @@ class MobileCompany extends React.PureComponent {
     clients: this.props.clients,
     viewMode: 0,            // 0 - просмотр всех, 1 - просмотр активных, 2 - просмотр заблокированных 
     idClientForEdition: 0,            // 0 - режим редактирования отключен, иначе id выбранного для редактирования клиента
+    additionMode: 0,
   };
 
   componentDidMount = () => {
     clientsEvents.addListener("EditModeBtnClicked", this.editModeOn);
-    clientsEvents.addListener("CancelEditionBtnClicked", this.cancelEdition);
-    clientsEvents.addListener("SaveEditionChangesBtnClicked", this.saveEditionChanges);
+    clientsEvents.addListener("CancelEditionOrAdditionBtnClicked", this.cancelEditionOrAddition);
+    clientsEvents.addListener("SaveEditionOrAdditionChangesBtnClicked", this.saveEditionOrAdditionChanges);
     clientsEvents.addListener("DeleteClientBtnClicked", this.deleteClient);
   }
 
@@ -44,19 +47,26 @@ class MobileCompany extends React.PureComponent {
     this.setState({idClientForEdition: id});
   }
 
-  cancelEdition = () => {
-    this.setState({idClientForEdition: 0});
+  cancelEditionOrAddition = () => {
+    this.setState({idClientForEdition: 0, additionMode: 0});
   }
 
-  saveEditionChanges = (fam, im, otch, balance, id) => {
+  saveEditionOrAdditionChanges = (fam, im, otch, balance, id) => {
     var tempArr = this.state.clients.slice();
     var newItem = {fam: fam, im: im, otch: otch, balance: balance, id: id}
 
     var selectedClientIndex = this.state.clients.findIndex(client => { if(client.id === id) return client});
-
-    tempArr[selectedClientIndex] = newItem;
-
-    this.setState({clients: tempArr, idClientForEdition: 0});
+    
+    if(selectedClientIndex != -1)
+    {
+      tempArr[selectedClientIndex] = newItem;
+    }
+    else
+    {
+      tempArr.push(newItem);
+    }
+      
+    this.setState({clients: tempArr, idClientForEdition: 0, additionMode: 0});
   }
 
   deleteClient = (id) => {
@@ -89,6 +99,10 @@ class MobileCompany extends React.PureComponent {
 
   setViewMode2 = () => {
     this.setState({viewMode: 2});
+  }
+
+  setAdditionMode = () => {
+    this.setState({additionMode: 1});
   }
 
   // setBalance = (clientId,newBalance) => {
@@ -144,12 +158,17 @@ class MobileCompany extends React.PureComponent {
         <div className='MobileCompanyClients'>
           {clientsCode}
         </div>
-
+        <div>
+          <input type="button" value="Добавить клиента" onClick={this.setAdditionMode} />
+        </div>
         {
           (this.state.idClientForEdition != 0) && <ClientCard id={selectedClient.id} fam={selectedClient.fam} im={selectedClient.im} 
           otch={selectedClient.otch} balance={selectedClient.balance} />
         }
-        
+        {
+          (this.state.additionMode != 0) && <ClientCard additionMode={true} id={MobileCompany.global_id++}/>
+        }
+
       </div>
     )
     
