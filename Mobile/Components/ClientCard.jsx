@@ -33,7 +33,7 @@ class ClientCard extends React.PureComponent {
                 this.setState({validationMsg: ""});
             }
             clientsEvents.emit('SaveEditionOrAdditionChangesBtnClicked', this.refs.famField.value, this.refs.imField.value, 
-            this.refs.otchField.value, this.refs.balanceField.value, this.props.id);
+            this.refs.otchField.value, parseInt(this.refs.balanceField.value), this.props.id);
         }
         else
         {
