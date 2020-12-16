@@ -29,8 +29,12 @@ class MobileClient extends React.PureComponent {
     
   };
 
-  editButtonSelected = (EO) => {
+  editModeBtnClicked = () => {
     clientsEvents.emit('EditModeBtnClicked', this.props.id);
+  }
+
+  deleteClientBtnClicked = () => {
+    clientsEvents.emit('DeleteClientBtnClicked', this.props.id);
   }
 
   render() {
@@ -43,7 +47,8 @@ class MobileClient extends React.PureComponent {
         <span className='MobileClientBalance'>{this.state.balance}</span>
         {this.state.status == 1 && <span>active</span>}
         {this.state.status == 0 && <span>blocked</span>}
-        <input type="button" defaultValue="Редактировать" onClick={this.editButtonSelected}/>
+        <input type="button" defaultValue="Редактировать" onClick={this.editModeBtnClicked}/>
+        <input type="button" defaultValue="Удалить" onClick={this.deleteClientBtnClicked} />
       </div>
     );
 

@@ -30,32 +30,45 @@ class MobileCompany extends React.PureComponent {
   };
 
   componentDidMount = () => {
-    clientsEvents.addListener("EditModeBtnClicked", this.editModeBtnClicked);
-    clientsEvents.addListener("CancelEditionBtnClicked", this.cancelEditionBtnClicked);
-    clientsEvents.addListener("SaveEditionChangesBtnClicked", this.saveEditionChangesBtnClicked);
+    clientsEvents.addListener("EditModeBtnClicked", this.editModeOn);
+    clientsEvents.addListener("CancelEditionBtnClicked", this.cancelEdition);
+    clientsEvents.addListener("SaveEditionChangesBtnClicked", this.saveEditionChanges);
+    clientsEvents.addListener("DeleteClientBtnClicked", this.deleteClient);
   }
 
   componentWillUnmount = () => {
     clientsEvents.removeAllListeners();
   }
 
-  editModeBtnClicked = (id) => {
+  editModeOn = (id) => {
     this.setState({idClientForEdition: id});
   }
 
-  cancelEditionBtnClicked = () => {
+  cancelEdition = () => {
     this.setState({idClientForEdition: 0});
   }
 
-  saveEditionChangesBtnClicked = (fam, im, otch, balance, id) => {
+  saveEditionChanges = (fam, im, otch, balance, id) => {
     var tempArr = this.state.clients.slice();
     var newItem = {fam: fam, im: im, otch: otch, balance: balance, id: id}
 
-    var selectedClientIndex = this.state.clients.findIndex(client => { client.id == id});
+    var selectedClientIndex = this.state.clients.findIndex(client => { if(client.id === id) return client});
 
     tempArr[selectedClientIndex] = newItem;
 
     this.setState({clients: tempArr, idClientForEdition: 0});
+  }
+
+  deleteClient = (id) => {
+    if(confirm("Вы уверены, что хотите удалить клиента?"))
+    {
+      var tempArr = this.state.clients.slice();
+
+      var selectedClientIndex = this.state.clients.findIndex(client => { if(client.id === id) return client});
+      tempArr.splice(selectedClientIndex,1);
+  
+      this.setState({clients: tempArr});
+    }
   }
 
   setName1 = () => {
