@@ -1,0 +1,33 @@
+div.MobileClient
+{
+  padding: 2px 0;
+}
+
+span.MobileClientBalance
+{
+  font-weight: bold;
+  text-align: right;
+}
+
+tr.ClientInfo 
+{
+  text-align: center;
+  font-size: medium;
+  border: 3px double black;
+}
+
+tr.ClientInfo td
+{
+  border: 3px double black;
+  padding: 5px;
+}
+
+.StatusActive 
+{
+  background-color: green;
+}
+
+.StatusBlocked
+{
+  background-color: red;
+}
