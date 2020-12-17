@@ -19,6 +19,8 @@ test('работа ExampleComponent', () => {
   let componentTree=component.toJSON();
   expect(componentTree).toMatchSnapshot();
   
+  // фильтрация
+
   const allClientsBtn = component.root.find(el => el.type == "input" && el.props.value == "Все");
   allClientsBtn.props.onClick();
   componentTree = component.toJSON();
@@ -34,4 +36,27 @@ test('работа ExampleComponent', () => {
   componentTree = component.toJSON();
   expect(componentTree).toMatchSnapshot();
 
+  allClientsBtn.props.onClick();
+
+  // удаление
+
+  let tdsWithDeleteButtons = component.root.findAll(el => el.type == "td" && el.props.children.type == "input" 
+   && el.props.children.props.defaultValue == "Удалить");
+  let deleteClientBtns = tdsWithDeleteButtons.map(el => el.children).flat();
+
+
+  const secondClient = deleteClientBtns[1];
+  secondClient.props.onClick();
+  componentTree = component.toJSON();
+  expect(componentTree).toMatchSnapshot();
+
+  // добавление 
+
+  const additionClientBtn = component.root.find(el => el.type == "input" && el.props.value == "Добавить клиента");
+  additionClientBtn.props.onClick();
+
+  const inputNameField = component.root.findAll(el => el.type == "input" && el.props.type=="text");
+  expect(inputNameField.length).toBe(1);
+
 });
+ 

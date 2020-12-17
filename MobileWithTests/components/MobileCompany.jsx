@@ -70,15 +70,22 @@ class MobileCompany extends React.PureComponent {
   }
 
   deleteClient = (id) => {
-    if(confirm("Вы уверены, что хотите удалить клиента?"))
-    {
-      var tempArr = this.state.clients.slice();
+    // if(confirm("Вы уверены, что хотите удалить клиента?"))
+    // {
+    //   var tempArr = this.state.clients.slice();
 
-      var selectedClientIndex = this.state.clients.findIndex(client => { if(client.id === id) return client});
-      tempArr.splice(selectedClientIndex,1);
+    //   var selectedClientIndex = this.state.clients.findIndex(client => { if(client.id === id) return client});
+    //   tempArr.splice(selectedClientIndex,1);
   
-      this.setState({clients: tempArr});
-    }
+    //   this.setState({clients: tempArr});
+    // }
+
+    var tempArr = this.state.clients.slice();
+
+    var selectedClientIndex = this.state.clients.findIndex(client => { if(client.id === id) return client});
+    tempArr.splice(selectedClientIndex,1);
+
+    this.setState({clients: tempArr});
   }
 
   setName1 = () => {
