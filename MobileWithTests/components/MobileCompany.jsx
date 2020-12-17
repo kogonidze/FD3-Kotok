@@ -70,31 +70,16 @@ class MobileCompany extends React.PureComponent {
   }
 
   deleteClient = (id) => {
-    // if(confirm("Вы уверены, что хотите удалить клиента?"))
-    // {
-    //   var tempArr = this.state.clients.slice();
+    if(confirm("Вы уверены, что хотите удалить клиента?"))
+    {
+      var tempArr = this.state.clients.slice();
 
-    //   var selectedClientIndex = this.state.clients.findIndex(client => { if(client.id === id) return client});
-    //   tempArr.splice(selectedClientIndex,1);
+      var selectedClientIndex = this.state.clients.findIndex(client => { if(client.id === id) return client});
+      tempArr.splice(selectedClientIndex,1);
   
-    //   this.setState({clients: tempArr});
-    // }
-
-    var tempArr = this.state.clients.slice();
-
-    var selectedClientIndex = this.state.clients.findIndex(client => { if(client.id === id) return client});
-    tempArr.splice(selectedClientIndex,1);
-
-    this.setState({clients: tempArr});
+      this.setState({clients: tempArr});
+    }
   }
-
-  setName1 = () => {
-    this.setState({name:'МТС'});
-  };
-
-  setName2 = () => {
-    this.setState({name:'Velcom'});
-  };
   
   setViewMode0 = () => {
     this.setState({viewMode: 0});
@@ -137,8 +122,6 @@ class MobileCompany extends React.PureComponent {
     
     return (
       <div className="MobileCompany">
-        <input className="Button" type="button" value="=МТС" onClick={this.setName1} />
-        <input className="Button" type="button" value="=Velcom" onClick={this.setName2} />
         <div className="MobileCompanyName">Компания &laquo;{this.state.name}&raquo;</div>
         <div>
           <input className="Button" type="button" value="Все" onClick={this.setViewMode0} />

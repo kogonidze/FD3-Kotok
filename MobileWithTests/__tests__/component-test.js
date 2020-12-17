@@ -1,10 +1,9 @@
 ﻿import React from 'react';
 import renderer from 'react-test-renderer';
-import ClientCard from '../components/ClientCard';
 import MobileCompany from '../components/MobileCompany';
 import {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { shallow, configure } from 'enzyme';
+import { configure } from 'enzyme';
 import toJSON from 'enzyme-to-json'
 
 let companyName='Velcom';
@@ -17,7 +16,7 @@ let clientsArr=[
 
 configure({adapter: new Adapter()});
 
-test('работа ExampleComponent', () => {
+test('фильтрация через jest', () => {
 
   const component = renderer.create(
     <MobileCompany name={companyName} clients={clientsArr}/>
@@ -25,8 +24,6 @@ test('работа ExampleComponent', () => {
 
   let componentTree=component.toJSON();
   expect(componentTree).toMatchSnapshot();
-  
-  // фильтрация
 
   const allClientsBtn = component.root.find(el => el.type == "input" && el.props.value == "Все");
   allClientsBtn.props.onClick();
@@ -44,34 +41,8 @@ test('работа ExampleComponent', () => {
   expect(componentTree).toMatchSnapshot();
 
   allClientsBtn.props.onClick();
-
-  // удаление
-
-  let tdsWithDeleteButtons = component.root.findAll(el => el.type == "td" && el.props.children.type == "input" 
-   && el.props.children.props.defaultValue == "Удалить");
-  let deleteClientBtns = tdsWithDeleteButtons.map(el => el.children).flat();
-
-
-  const secondClient = deleteClientBtns[1];
-  secondClient.props.onClick();
-  componentTree = component.toJSON();
-  expect(componentTree).toMatchSnapshot();
-
-  // добавление 
-
-  const additionClientBtn = component.root.find(el => el.type == "input" && el.props.value == "Добавить клиента");
-  additionClientBtn.props.onClick();
-
-  const inputNameField = component.root.findAll(el => el.type == "input" && el.props.type=="text");
-  //expect(inputNameField.length).toBe(1);
-
-  
-
-  //inputNameField[0].props.defaultValue = "Василий";
-  // componentTree = component.toJSON();
-  // expect(componentTree).toMatchSnapshot();
-  
 });
+
 
 test('добавление через enzyme', () => {
   const wrapper = mount(<MobileCompany name={companyName} clients={clientsArr}/>);
@@ -89,5 +60,30 @@ test('добавление через enzyme', () => {
   wrapper.find({defaultValue: "Сохранить"}).simulate('click');
 
   expect(toJSON(wrapper)).toMatchSnapshot();
+})
 
+test('редактирование через enzyme', () => {
+  const wrapper = mount(<MobileCompany name={companyName} clients={clientsArr}/>);
+  wrapper.find({defaultValue: "Редактировать"}).first().simulate('click');
+
+  wrapper.find({id: "famField"}).instance().value = "Коток";
+
+  wrapper.find({id: "imField"}).instance().value = "Василий";
+
+  wrapper.find({id: "otchField"}).instance().value = "Сергеевич";
+
+  wrapper.find({id: "balanceField"}).instance().value = "250";
+ 
+  wrapper.find({defaultValue: "Сохранить"}).simulate('click');
+  
+  expect(toJSON(wrapper)).toMatchSnapshot();
+})
+
+test('удаление через enzyme', () => {
+  window.confirm = jest.fn(() => true);
+  const wrapper = mount(<MobileCompany name={companyName} clients={clientsArr}/>);
+  wrapper.find({defaultValue: "Удалить"}).first().simulate('click');
+  expect(window.confirm).toBeCalled();
+
+  expect(toJSON(wrapper)).toMatchSnapshot();
 })
