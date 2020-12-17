@@ -1,5 +1,370 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`добавление через enzyme 1`] = `
+<MobileCompany
+  clients={
+    Array [
+      Object {
+        "balance": 200,
+        "fam": "Иванов",
+        "id": 101,
+        "im": "Иван",
+        "otch": "Иванович",
+      },
+      Object {
+        "balance": 250,
+        "fam": "Сидоров",
+        "id": 105,
+        "im": "Сидор",
+        "otch": "Сидорович",
+      },
+      Object {
+        "balance": 180,
+        "fam": "Петров",
+        "id": 110,
+        "im": "Пётр",
+        "otch": "Петрович",
+      },
+      Object {
+        "balance": -220,
+        "fam": "Григорьев",
+        "id": 120,
+        "im": "Григорий",
+        "otch": "Григорьевич",
+      },
+    ]
+  }
+  name="Velcom"
+>
+  <div
+    className="MobileCompany"
+  >
+    <input
+      className="Button"
+      onClick={[Function]}
+      type="button"
+      value="=МТС"
+    />
+    <input
+      className="Button"
+      onClick={[Function]}
+      type="button"
+      value="=Velcom"
+    />
+    <div
+      className="MobileCompanyName"
+    >
+      Компания «
+      Velcom
+      »
+    </div>
+    <div>
+      <input
+        className="Button"
+        onClick={[Function]}
+        type="button"
+        value="Все"
+      />
+      <input
+        className="Button"
+        onClick={[Function]}
+        type="button"
+        value="Активные"
+      />
+      <input
+        className="Button"
+        onClick={[Function]}
+        type="button"
+        value="Заблокированные"
+      />
+    </div>
+    <table
+      className="Table"
+    >
+      <thead>
+        <tr
+          className="HeadingRow"
+        >
+          <th>
+            Фамилия
+          </th>
+          <th>
+            Имя
+          </th>
+          <th>
+            Отчество
+          </th>
+          <th>
+            Баланс
+          </th>
+          <th>
+            Статус
+          </th>
+          <th>
+            Редактировать
+          </th>
+          <th>
+            Удалить
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        className="Row"
+      >
+        <MobileClient
+          info={
+            Object {
+              "balance": 200,
+              "fam": "Иванов",
+              "id": 101,
+              "im": "Иван",
+              "otch": "Иванович",
+            }
+          }
+          key="101"
+        >
+          <tr
+            className="ClientInfo"
+          >
+            <td>
+              Иванов
+            </td>
+            <td>
+              Иван
+            </td>
+            <td>
+              Иванович
+            </td>
+            <td>
+              200
+            </td>
+            <td
+              className="StatusActive"
+            >
+              active
+            </td>
+            <td>
+              <input
+                defaultValue="Редактировать"
+                onClick={[Function]}
+                type="button"
+              />
+            </td>
+            <td>
+              <input
+                defaultValue="Удалить"
+                onClick={[Function]}
+                type="button"
+              />
+            </td>
+          </tr>
+        </MobileClient>
+        <MobileClient
+          info={
+            Object {
+              "balance": 250,
+              "fam": "Сидоров",
+              "id": 105,
+              "im": "Сидор",
+              "otch": "Сидорович",
+            }
+          }
+          key="105"
+        >
+          <tr
+            className="ClientInfo"
+          >
+            <td>
+              Сидоров
+            </td>
+            <td>
+              Сидор
+            </td>
+            <td>
+              Сидорович
+            </td>
+            <td>
+              250
+            </td>
+            <td
+              className="StatusActive"
+            >
+              active
+            </td>
+            <td>
+              <input
+                defaultValue="Редактировать"
+                onClick={[Function]}
+                type="button"
+              />
+            </td>
+            <td>
+              <input
+                defaultValue="Удалить"
+                onClick={[Function]}
+                type="button"
+              />
+            </td>
+          </tr>
+        </MobileClient>
+        <MobileClient
+          info={
+            Object {
+              "balance": 180,
+              "fam": "Петров",
+              "id": 110,
+              "im": "Пётр",
+              "otch": "Петрович",
+            }
+          }
+          key="110"
+        >
+          <tr
+            className="ClientInfo"
+          >
+            <td>
+              Петров
+            </td>
+            <td>
+              Пётр
+            </td>
+            <td>
+              Петрович
+            </td>
+            <td>
+              180
+            </td>
+            <td
+              className="StatusActive"
+            >
+              active
+            </td>
+            <td>
+              <input
+                defaultValue="Редактировать"
+                onClick={[Function]}
+                type="button"
+              />
+            </td>
+            <td>
+              <input
+                defaultValue="Удалить"
+                onClick={[Function]}
+                type="button"
+              />
+            </td>
+          </tr>
+        </MobileClient>
+        <MobileClient
+          info={
+            Object {
+              "balance": -220,
+              "fam": "Григорьев",
+              "id": 120,
+              "im": "Григорий",
+              "otch": "Григорьевич",
+            }
+          }
+          key="120"
+        >
+          <tr
+            className="ClientInfo"
+          >
+            <td>
+              Григорьев
+            </td>
+            <td>
+              Григорий
+            </td>
+            <td>
+              Григорьевич
+            </td>
+            <td>
+              -220
+            </td>
+            <td
+              className="StatusBlocked"
+            >
+              blocked
+            </td>
+            <td>
+              <input
+                defaultValue="Редактировать"
+                onClick={[Function]}
+                type="button"
+              />
+            </td>
+            <td>
+              <input
+                defaultValue="Удалить"
+                onClick={[Function]}
+                type="button"
+              />
+            </td>
+          </tr>
+        </MobileClient>
+        <MobileClient
+          info={
+            Object {
+              "balance": 250,
+              "fam": "Коток",
+              "id": 122,
+              "im": "Василий",
+              "otch": "Сергеевич",
+            }
+          }
+          key="122"
+        >
+          <tr
+            className="ClientInfo"
+          >
+            <td>
+              Коток
+            </td>
+            <td>
+              Василий
+            </td>
+            <td>
+              Сергеевич
+            </td>
+            <td>
+              250
+            </td>
+            <td
+              className="StatusActive"
+            >
+              active
+            </td>
+            <td>
+              <input
+                defaultValue="Редактировать"
+                onClick={[Function]}
+                type="button"
+              />
+            </td>
+            <td>
+              <input
+                defaultValue="Удалить"
+                onClick={[Function]}
+                type="button"
+              />
+            </td>
+          </tr>
+        </MobileClient>
+      </tbody>
+    </table>
+    <div>
+      <input
+        className="Button"
+        onClick={[Function]}
+        type="button"
+        value="Добавить клиента"
+      />
+    </div>
+  </div>
+</MobileCompany>
+`;
+
 exports[`работа ExampleComponent 1`] = `
 <div
   className="MobileCompany"

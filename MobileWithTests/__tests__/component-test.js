@@ -1,6 +1,11 @@
 ﻿import React from 'react';
 import renderer from 'react-test-renderer';
+import ClientCard from '../components/ClientCard';
 import MobileCompany from '../components/MobileCompany';
+import {mount} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import { shallow, configure } from 'enzyme';
+import toJSON from 'enzyme-to-json'
 
 let companyName='Velcom';
 let clientsArr=[ 
@@ -9,6 +14,8 @@ let clientsArr=[
   {id:110, fam:"Петров", im:"Пётр", otch:"Петрович", balance:180},
   {id:120, fam:"Григорьев", im:"Григорий", otch:"Григорьевич", balance:-220},
 ];
+
+configure({adapter: new Adapter()});
 
 test('работа ExampleComponent', () => {
 
@@ -56,7 +63,31 @@ test('работа ExampleComponent', () => {
   additionClientBtn.props.onClick();
 
   const inputNameField = component.root.findAll(el => el.type == "input" && el.props.type=="text");
-  expect(inputNameField.length).toBe(1);
+  //expect(inputNameField.length).toBe(1);
 
+  
+
+  //inputNameField[0].props.defaultValue = "Василий";
+  // componentTree = component.toJSON();
+  // expect(componentTree).toMatchSnapshot();
+  
 });
- 
+
+test('добавление через enzyme', () => {
+  const wrapper = mount(<MobileCompany name={companyName} clients={clientsArr}/>);
+   
+  wrapper.find({value: "Добавить клиента"}).simulate('click');
+
+  wrapper.find({id: "famField"}).instance().value = "Коток";
+
+  wrapper.find({id: "imField"}).instance().value = "Василий";
+
+  wrapper.find({id: "otchField"}).instance().value = "Сергеевич";
+
+  wrapper.find({id: "balanceField"}).instance().value = "250";
+
+  wrapper.find({defaultValue: "Сохранить"}).simulate('click');
+
+  expect(toJSON(wrapper)).toMatchSnapshot();
+
+})
