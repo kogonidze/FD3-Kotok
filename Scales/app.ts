@@ -9,7 +9,7 @@ class Scales {
     getNameList() : string[] {
         var nameList: string[] = [];
 
-        this.products.forEach(product => {
+        this.products.forEach((product : Product) => {
             nameList.push(product.getName());
         });
 
@@ -19,8 +19,8 @@ class Scales {
     getSumScale() : number {
         var sumScale: number = 0;
 
-        this.products.forEach(product => {
-            var scale = product.getScale();
+        this.products.forEach((product : Product) => {
+            var scale : number = product.getScale();
             sumScale += scale;
         });
 
