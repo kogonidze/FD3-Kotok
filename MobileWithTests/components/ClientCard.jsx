@@ -56,19 +56,19 @@ class ClientCard extends React.PureComponent {
             }
 
             <span className="CardLabel">Фамилия: </span>
-            <input type="text" defaultValue={this.state.fam} ref="famField" />
+            <input id="famField" type="text" defaultValue={this.state.fam} ref="famField" />
             <br />
 
             <span className="CardLabel">Имя: </span>
-            <input type="text" defaultValue={this.state.im} ref="imField" />
+            <input id="imField" type="text" defaultValue={this.state.im} ref="imField" />
             <br />
 
             <span className="CardLabel">Отчество: </span>
-            <input type="text" defaultValue={this.state.otch} ref="otchField" />
+            <input id="otchField" type="text" defaultValue={this.state.otch} ref="otchField" />
             <br />
 
             <span className="CardLabel">Баланс: </span>
-            <input type="text" defaultValue={this.state.balance} ref="balanceField" />
+            <input id="balanceField" type="text" defaultValue={this.state.balance} ref="balanceField" />
 
             <div>
                 <input className="Button" type="button" defaultValue="Сохранить" onClick={this.saveChangesBtnClicked} />
