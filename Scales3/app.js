@@ -1,3 +1,6 @@
+function uniFactory(classRef) {
+    return new classRef();
+}
 var ScalesStorageEngineArray = /** @class */ (function () {
     function ScalesStorageEngineArray() {
         this.products = [];
@@ -68,9 +71,12 @@ var Product = /** @class */ (function () {
     };
     return Product;
 }());
-var scaleArray1 = new Scales(new ScalesStorageEngineArray());
-var scaleArray2 = new Scales(new ScalesStorageEngineArray());
-var scaleLocalStorage = new Scales(new ScalesStorageEngineLocalStorage());
+// let scaleArray1: Scales<ScalesStorageEngineArray> = new Scales(
+//   new ScalesStorageEngineArray()
+// );
+var scaleArray1 = new Scales(uniFactory(ScalesStorageEngineArray));
+var scaleArray2 = new Scales(uniFactory(ScalesStorageEngineArray));
+var scaleLocalStorage = new Scales(uniFactory(ScalesStorageEngineLocalStorage));
 var redApple = new Product("red", 500);
 var greenApple = new Product("green", 700);
 var smallTomato = new Product("small", 200);

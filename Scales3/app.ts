@@ -1,3 +1,7 @@
+function uniFactory<objtype>(classRef: { new (): objtype }): objtype {
+  return new classRef();
+}
+
 interface IStorageEngine {
   addItem(item: Product): void;
   getItem(index: number): Product;
@@ -90,15 +94,15 @@ class Product {
 }
 
 let scaleArray1: Scales<ScalesStorageEngineArray> = new Scales(
-  new ScalesStorageEngineArray()
+  uniFactory(ScalesStorageEngineArray)
 );
 
 let scaleArray2: Scales<ScalesStorageEngineArray> = new Scales(
-  new ScalesStorageEngineArray()
+  uniFactory(ScalesStorageEngineArray)
 );
 
 let scaleLocalStorage: Scales<ScalesStorageEngineLocalStorage> = new Scales(
-  new ScalesStorageEngineLocalStorage()
+  uniFactory(ScalesStorageEngineLocalStorage)
 );
 
 let redApple: Product = new Product("red", 500);
