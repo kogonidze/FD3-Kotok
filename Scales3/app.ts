@@ -1,84 +1,131 @@
+interface IStorageEngine {
+  addItem(item: Product): void;
+  getItem(index: number): Product;
+  getCount(): number;
+}
 
-class Scales {
-    products: Product[] = [];
+class ScalesStorageEngineArray implements IStorageEngine {
+  private products: Array<Product>;
 
-    add(newProduct: Product) : void{
-        this.products.push(newProduct);
+  constructor() {
+    this.products = [];
+  }
+
+  addItem(item: Product): void {
+    this.products.push(item);
+  }
+
+  getItem(index: number): Product {
+    return this.products[index];
+  }
+
+  getCount(): number {
+    return this.products.length;
+  }
+}
+
+class ScalesStorageEngineLocalStorage implements IStorageEngine {
+  constructor() {
+    localStorage.clear();
+  }
+  addItem(item: Product): void {
+    localStorage.setItem(localStorage.length.toString(), JSON.stringify(item));
+  }
+  getItem(index: number): Product {
+    var object = JSON.parse(localStorage.getItem(index.toString()));
+    return new Product(object.name, object.scale);
+  }
+  getCount(): number {
+    return localStorage.length;
+  }
+}
+
+class Scales<StorageItem extends IStorageEngine> {
+  constructor(private scales: StorageItem) {}
+
+  add(newProduct: Product): void {
+    this.scales.addItem(newProduct);
+  }
+
+  getNameList(): string[] {
+    var nameList: Array<string> = [];
+
+    for (let i = 0; i < this.scales.getCount(); i++) {
+      var product = this.scales.getItem(i);
+      nameList.push(product.getName());
     }
 
-    getNameList() : string[] {
-        var nameList: string[] = [];
+    return nameList;
+  }
 
-        this.products.forEach((product : Product) => {
-            nameList.push(product.getName());
-        });
+  getSumScale(): number {
+    var sumScale: number = 0;
 
-        return nameList;
+    for (let i = 0; i < this.scales.getCount(); i++) {
+      var product = this.scales.getItem(i);
+      var scale: number = product.getScale();
+      sumScale += scale;
     }
 
-    getSumScale() : number {
-        var sumScale: number = 0;
-
-        this.products.forEach((product : Product) => {
-            var scale : number = product.getScale();
-            sumScale += scale;
-        });
-
-        return sumScale;
-    }
+    return sumScale;
+  }
 }
 
 class Product {
-    name: string;
-    scale: number;
+  private name: string;
+  private scale: number;
 
-    constructor(_name:string, _scale:number)
-    {
-        this.name = _name;
-        this.scale = _scale;
-    }
+  constructor(_name: string, _scale: number) {
+    this.name = _name;
+    this.scale = _scale;
+  }
 
-    getName(): string {
-        return this.name;
-    }
+  public getName(): string {
+    return this.name;
+  }
 
-    getScale(): number {
-        return this.scale;
-    }
+  public getScale(): number {
+    return this.scale;
+  }
 }
 
-class Apple extends Product {
-    constructor(_name: string, _scale: number)
-    {
-        super(_name, _scale);
-    }
-}
+let scaleArray1: Scales<ScalesStorageEngineArray> = new Scales(
+  new ScalesStorageEngineArray()
+);
 
-class Tomato extends Product {
-    constructor(_name: string, _scale: number)
-    {
-        super(_name, _scale);
-    }
-}
+let scaleArray2: Scales<ScalesStorageEngineArray> = new Scales(
+  new ScalesStorageEngineArray()
+);
 
-let scale : Scales = new Scales();
+let scaleLocalStorage: Scales<ScalesStorageEngineLocalStorage> = new Scales(
+  new ScalesStorageEngineLocalStorage()
+);
 
-let redApple : Apple = new Apple("red", 500);
-let greenApple : Apple = new Apple("green", 700);
+let redApple: Product = new Product("red", 500);
+let greenApple: Product = new Product("green", 700);
 
-let smallTomato : Tomato = new Tomato("small", 200);
-let bigTomato : Tomato = new Tomato("big", 600);
+let smallTomato: Product = new Product("small", 200);
+let bigTomato: Product = new Product("big", 600);
 
-scale.add(redApple);
-scale.add(greenApple);
+scaleArray1.add(redApple);
+scaleArray1.add(greenApple);
+scaleArray2.add(smallTomato);
+scaleArray2.add(bigTomato);
 
-console.log("After addition of apples");
-console.log(scale.getSumScale());
-console.log(scale.getNameList());
+console.log("About array №1");
+console.log(scaleArray1.getSumScale());
+console.log(scaleArray1.getNameList());
 
-scale.add(smallTomato);
-scale.add(bigTomato);
+console.log("About array №2");
+console.log(scaleArray2.getSumScale());
+console.log(scaleArray2.getNameList());
 
-console.log("After addition of tomatoes");
-console.log(scale.getSumScale());
-console.log(scale.getNameList());
+let waterMelon: Product = new Product("greenWaterMelon", 6400);
+let pineApple: Product = new Product("yellowPineApple", 1100);
+
+scaleLocalStorage.add(waterMelon);
+scaleLocalStorage.add(pineApple);
+
+console.log("About localstorage");
+console.log(scaleLocalStorage.getSumScale());
+console.log(scaleLocalStorage.getNameList());
